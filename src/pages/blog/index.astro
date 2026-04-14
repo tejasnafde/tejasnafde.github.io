@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const isDev = import.meta.env.DEV;
+
+const posts = (await getCollection('blog', ({ data }) => {
+  return isDev || data.status === 'published';
+})).sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+---
+
+<BaseLayout title="Writing — Tejas Nafde" description="Engineering notes and technical writing by Tejas Nafde">
+  <section class="blog-page">
+    <div class="blog-inner">
+      <h1>Writing</h1>
+      <p class="blog-desc">Engineering notes, technical deep-dives, and things I've learned building software.</p>
+
+      {posts.length === 0 ? (
+        <p class="empty">Nothing published yet. Check back soon.</p>
+      ) : (
+        <div class="post-list">
+          {posts.map((post) => (
+            <a href={`/blog/${post.id}`} class="post-row">
+              <div class="post-info">
+                <div class="post-title-row">
+                  {post.data.status === 'draft' && <span class="draft-badge">draft</span>}
+                  <h2>{post.data.title}</h2>
+                </div>
+                {post.data.description && <p class="post-desc">{post.data.description}</p>}
+                <div class="post-meta">
+                  <time datetime={post.data.date}>
+                    {new Date(post.data.date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    })}
+                  </time>
+                  {post.data.timeframe && <span class="sep">/</span>}
+                  {post.data.timeframe && <span>{post.data.timeframe}</span>}
+                  {post.data.commit_count && <span class="sep">/</span>}
+                  {post.data.commit_count && <span>{post.data.commit_count} commits</span>}
+                </div>
+              </div>
+              {post.data.tags && (
+                <div class="post-tags">
+                  {post.data.tags.map((tag) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+              )}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-page {
+    padding: 8rem 2rem 2rem;
+  }
+
+  .blog-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 2.5rem;
+    color: var(--text-bright);
+    margin-bottom: 0.5rem;
+  }
+
+  .blog-desc {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    margin-bottom: 3rem;
+    letter-spacing: 0.01em;
+  }
+
+  .empty {
+    color: var(--text-dim);
+    font-style: italic;
+    font-size: 0.9rem;
+  }
+
+  .post-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .post-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: border-color 0.15s;
+  }
+
+  .post-row:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .post-row:hover {
+    border-color: var(--border-bright);
+  }
+
+  .post-info {
+    flex: 1;
+  }
+
+  .post-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .draft-badge {
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.1rem 0.4rem;
+    border: 1px solid #c9a84c;
+    color: #c9a84c;
+    flex-shrink: 0;
+  }
+
+  .post-title-row h2 {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--text-bright);
+  }
+
+  .post-row:hover h2 {
+    color: var(--accent);
+  }
+
+  .post-desc {
+    color: var(--text);
+    font-size: 0.82rem;
+    line-height: 1.6;
+    margin-bottom: 0.3rem;
+  }
+
+  .post-meta {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    flex-wrap: wrap;
+    letter-spacing: 0.02em;
+  }
+
+  .sep {
+    opacity: 0.4;
+  }
+
+  .post-tags {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    align-self: center;
+  }
+
+  .tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.03em;
+    color: var(--text-dim);
+    background: rgba(201, 168, 76, 0.15);
+    padding: 0.1rem 0.4rem;
+  }
+</style>

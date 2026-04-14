@@ -1,0 +1,745 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => data.status === 'published'))
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
+
+const experience = [
+  {
+    role: 'Software Development Engineer',
+    company: 'GeoIQ',
+    companyNote: 'a Lenskart company',
+    url: 'https://geoiq.io',
+    period: 'Jun 2025 — Present',
+    highlights: [
+      'Own an end-to-end automated pipeline that transforms survey data into client-specific presentations, generating each in 30s–5min.',
+      'Designed a decorator-based caching layer with conditional invalidation — reduced API latency by 80% for cached sections.',
+      'Built a standalone payment and invoicing service with idempotent verification and webhook-driven state management.',
+      'Architected a real-time messaging platform used across three production applications using WebSockets and Pub/Sub.',
+      'Integrated telephony with automated call summaries, shared broker notes, and webhook-driven state tracking.',
+    ],
+  },
+  {
+    role: 'Software Development Engineer Intern',
+    company: 'GeoIQ',
+    companyNote: 'a Lenskart company',
+    url: 'https://geoiq.io',
+    period: 'Jan — Jun 2025',
+    highlights: [
+      'Built a FastAPI WebSocket gateway with room-based messaging and centralized connection lifecycle management.',
+      'Developed Slack-based admin tooling with approval workflows for safe GCP Compute Engine operations.',
+      'Designed a feature-flagged multi-channel notification system (push, WhatsApp, email) with delivery-state tracking.',
+    ],
+  },
+];
+
+const featuredProjects = [
+  {
+    name: 'CellIQ',
+    tagline: 'LLM-friendly notebook editor',
+    description: 'Desktop notebook app with a bidirectional sync engine that maintains a token-efficient .py mirror of .ipynb files, reducing LLM token usage by 70%+. Diff review UI for accepting or rejecting AI-suggested edits cell by cell.',
+    tech: ['Electron', 'React', 'TypeScript', 'SQLite', 'CodeMirror'],
+    link: 'https://github.com/tejasnafde/celliq',
+    status: 'coming-soon',
+  },
+  {
+    name: 'WatchWithMi',
+    tagline: 'Synchronized video watching',
+    description: 'Real-time shared viewing platform with room-based sync, live chat, and a media bridge service. Full-stack with a Next.js frontend and FastAPI + Socket.IO backend.',
+    tech: ['Next.js', 'FastAPI', 'Socket.IO', 'Redis', 'Tailwind'],
+    link: null,
+    status: 'private',
+  },
+  {
+    name: 'Blog Writer',
+    tagline: 'Automated engineering blog pipeline',
+    description: 'Pipeline that generates engineering blog posts from git commit history using Gemini. Discovers repos, extracts commits, batches by week or month, and produces structured technical narratives on a weekly schedule.',
+    tech: ['Python', 'FastAPI', 'Gemini API', 'SQLite', 'APScheduler'],
+    link: null,
+    status: 'coming soon',
+  },
+];
+
+const otherProjects = [
+  {
+    name: 'MyOptum',
+    description: 'Hardware communication layer for a remote phoropter. Real-time serial comms with a custom binary protocol (SOH/CR/EOT).',
+    note: 'Lenskart Hackathon — Special Mention',
+    tech: ['Python', 'Serial Protocol'],
+    link: null,
+    status: 'private',
+  },
+  {
+    name: 'FZM Server Manager',
+    description: 'Production bot for Factorio multiplayer servers. WebSocket real-time updates, REST lifecycle control, dual-layer state persistence.',
+    tech: ['Python', 'WebSockets', 'SQLite', 'Docker'],
+    link: 'https://github.com/tejasnafde/fzm-discord-bot',
+    status: 'public',
+  },
+  {
+    name: 'Radicalize Me',
+    description: 'Research bot with multi-LLM fallback (Gemini, Groq, HuggingFace). Scrapes sources, ranks with semantic embeddings, delivers cited analysis.',
+    tech: ['Python', 'Flask', 'LangChain'],
+    link: 'https://github.com/tejasnafde/radicalize-me-public',
+    status: 'public',
+  },
+];
+
+const skills = [
+  'Python', 'TypeScript', 'SQL',
+  'FastAPI', 'Flask', 'WebSockets', 'Socket.IO',
+  'React', 'Next.js', 'Electron',
+  'MongoDB', 'PostgreSQL', 'SQLite', 'Redis',
+  'GCP', 'Docker', 'Fly.io', 'Linux',
+  'Razorpay', 'Zoho', 'Slack API', 'LLM APIs',
+];
+---
+
+<BaseLayout title="Tejas Nafde — Software Engineer">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-upper">
+        <div class="hero-label">Software Engineer / Bengaluru</div>
+        <h1 class="hero-name">Tejas Nafde</h1>
+      </div>
+      <div class="hero-lower">
+        <p class="hero-desc">
+          I build backend systems, real-time infrastructure, and developer tools.
+          Currently engineering at <a href="https://geoiq.io" target="_blank" rel="noopener">GeoIQ</a>.
+          BITS Pilani, Goa alumnus.
+        </p>
+        <div class="hero-links">
+          <a href="https://github.com/tejasnafde" target="_blank" rel="noopener">github</a>
+          <span class="dot"></span>
+          <a href="https://www.linkedin.com/in/tejas-nafde/" target="_blank" rel="noopener">linkedin</a>
+          <span class="dot"></span>
+          <a href="mailto:nafdetejas@gmail.com">nafdetejas@gmail.com</a>
+          <span class="dot"></span>
+          <a href="https://drive.google.com/file/d/1sYJAv4TOsi_pFA71pgHXbWaDUbcmbjKA/view?usp=sharing" target="_blank" rel="noopener">resume</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="work" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">I</span>
+        <h2>Experience</h2>
+      </div>
+      <div class="exp-list">
+        {experience.map((job, i) => (
+          <div class={`exp-block ${i > 0 ? 'exp-block--later' : ''}`}>
+            <div class="exp-top">
+              <div>
+                <span class="exp-role">{job.role}</span>
+                <a href={job.url} target="_blank" rel="noopener" class="exp-company">
+                  {job.company} <span class="exp-note">({job.companyNote})</span>
+                </a>
+              </div>
+              <span class="exp-period">{job.period}</span>
+            </div>
+            <ul class="exp-bullets">
+              {job.highlights.map((h) => (
+                <li>{h}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Projects -->
+  <section id="projects" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">II</span>
+        <h2>Featured Projects</h2>
+      </div>
+      <div class="feat-grid">
+        {featuredProjects.map((p) => (
+          <div class="feat-card">
+            <div class="feat-top">
+              <div class="feat-title-row">
+                {p.link ? (
+                  <a href={p.link} target="_blank" rel="noopener" class="feat-name">{p.name}</a>
+                ) : (
+                  <span class="feat-name">{p.name}</span>
+                )}
+                <span class={`badge badge--${p.status.replace(' ', '-')}`}>{p.status}</span>
+              </div>
+              <span class="feat-tagline">{p.tagline}</span>
+            </div>
+            <p class="feat-desc">{p.description}</p>
+            <div class="tags">
+              {p.tech.map((t) => (
+                <span class="tag">{t}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Other Projects -->
+  <section class="section section--compact">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num"></span>
+        <h2>Other Work</h2>
+      </div>
+      <div class="other-grid">
+        {otherProjects.map((p) => (
+          <div class="other-card">
+            <div class="other-top">
+              {p.link ? (
+                <a href={p.link} target="_blank" rel="noopener" class="other-name">{p.name}</a>
+              ) : (
+                <span class="other-name">{p.name}</span>
+              )}
+              {p.status !== 'public' && (
+                <span class="badge badge--private">{p.status}</span>
+              )}
+            </div>
+            <p class="other-desc">{p.description}</p>
+            {p.note && <p class="other-note">{p.note}</p>}
+            <div class="tags">
+              {p.tech.map((t) => (
+                <span class="tag">{t}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="section section--compact">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">III</span>
+        <h2>Tools & Stack</h2>
+      </div>
+      <div class="skill-flow">
+        {skills.map((s, i) => (
+          <Fragment>
+            <span class="skill-item">{s}</span>
+            {i < skills.length - 1 && <span class="skill-sep">/</span>}
+          </Fragment>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Posts -->
+  {posts.length > 0 && (
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="section-num">IV</span>
+          <h2>Writing</h2>
+        </div>
+        <div class="post-list">
+          {posts.map((post) => (
+            <a href={`/blog/${post.id}`} class="post-row">
+              <span class="post-title">{post.data.title}</span>
+              <span class="post-line"></span>
+              <time>{new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}</time>
+            </a>
+          ))}
+        </div>
+        <a href="/blog" class="link-subtle">all posts &rarr;</a>
+      </div>
+    </section>
+  )}
+
+  <!-- Contact -->
+  <section class="section section--contact">
+    <div class="wrap">
+      <h2 class="contact-title">Let's talk.</h2>
+      <p class="contact-desc">Open to interesting conversations about engineering, side projects, or new opportunities.</p>
+      <a href="mailto:nafdetejas@gmail.com" class="contact-link">nafdetejas@gmail.com &rarr;</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .wrap {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ---- Hero ---- */
+  .hero {
+    padding: 9rem 0 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-upper {
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    line-height: 1;
+    color: var(--text-bright);
+    letter-spacing: -0.02em;
+  }
+
+  .hero-lower {
+    max-width: 540px;
+  }
+
+  .hero-desc {
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-desc a {
+    color: var(--text-bright);
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 3px;
+  }
+
+  .hero-links {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-links a {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    letter-spacing: 0.02em;
+  }
+
+  .hero-links a:hover {
+    color: var(--accent);
+  }
+
+  .dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--border-bright);
+    display: inline-block;
+  }
+
+  /* ---- Section Headers ---- */
+  .section {
+    padding: 4.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section--compact {
+    padding: 3rem 0;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    min-width: 1.5rem;
+  }
+
+  .section-head h2 {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.5rem;
+    color: var(--text-bright);
+  }
+
+  /* ---- Experience ---- */
+  .exp-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .exp-block {
+    padding-bottom: 2.5rem;
+  }
+
+  .exp-block--later {
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .exp-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .exp-role {
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-bright);
+    margin-bottom: 0.15rem;
+  }
+
+  .exp-company {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+  .exp-note {
+    font-style: italic;
+  }
+
+  .exp-period {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    padding-top: 0.15rem;
+  }
+
+  .exp-bullets {
+    list-style: none;
+    padding: 0;
+    max-width: 680px;
+  }
+
+  .exp-bullets li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .exp-bullets li::before {
+    content: '\2014';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  /* ---- Featured Projects ---- */
+  .feat-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    border: 1px solid var(--border);
+    background: var(--border);
+  }
+
+  .feat-card {
+    background: var(--bg-elevated);
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    transition: background 0.15s;
+  }
+
+  .feat-card:hover {
+    background: var(--bg-hover);
+  }
+
+  .feat-top {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .feat-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .feat-name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--text-bright);
+  }
+
+  a.feat-name:hover {
+    color: var(--accent);
+  }
+
+  .feat-tagline {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    letter-spacing: 0.02em;
+  }
+
+  .feat-desc {
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 640px;
+  }
+
+  /* ---- Other Projects ---- */
+  .other-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    border: 1px solid var(--border);
+    background: var(--border);
+  }
+
+  .other-card {
+    background: var(--bg);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: background 0.15s;
+  }
+
+  .other-card:hover {
+    background: var(--bg-elevated);
+  }
+
+  .other-top {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .other-name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--text-bright);
+  }
+
+  a.other-name:hover {
+    color: var(--accent);
+  }
+
+  .other-desc {
+    font-size: 0.8rem;
+    color: var(--text);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .other-note {
+    font-size: 0.75rem;
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  /* ---- Badges ---- */
+  .badge {
+    font-size: 0.6rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.12rem 0.45rem;
+    border: 1px solid var(--border-bright);
+    color: var(--text-dim);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .badge--coming-soon {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .badge--coming-soon,
+  .badge--private {
+    border-color: var(--border-bright);
+    color: var(--text-dim);
+  }
+
+  /* ---- Tags ---- */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: auto;
+    padding-top: 0.25rem;
+  }
+
+  .tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.02em;
+    color: var(--text-dim);
+    background: var(--accent-dim);
+    padding: 0.2rem 0.5rem;
+    display: inline-block;
+  }
+
+  /* ---- Skills ---- */
+  .skill-flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.2rem 0.5rem;
+    line-height: 2.2;
+  }
+
+  .skill-item {
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+
+  .skill-sep {
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    opacity: 0.4;
+    user-select: none;
+  }
+
+  /* ---- Blog ---- */
+  .post-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .post-row {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .post-row:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .post-row:hover .post-title {
+    color: var(--accent);
+  }
+
+  .post-title {
+    font-size: 0.92rem;
+    color: var(--text-bright);
+    transition: color 0.15s;
+  }
+
+  .post-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    min-width: 2rem;
+  }
+
+  .post-row time {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  .link-subtle {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    letter-spacing: 0.02em;
+  }
+
+  .link-subtle:hover {
+    color: var(--accent);
+  }
+
+  /* ---- Contact ---- */
+  .section--contact {
+    padding: 5rem 0;
+    border-bottom: none;
+  }
+
+  .contact-title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 2.5rem;
+    color: var(--text-bright);
+    margin-bottom: 0.6rem;
+  }
+
+  .contact-desc {
+    font-size: 0.92rem;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+    line-height: 1.7;
+    max-width: 480px;
+  }
+
+  .contact-link {
+    font-size: 0.92rem;
+    color: var(--accent);
+  }
+
+  .contact-link:hover {
+    color: var(--text-bright);
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 768px) {
+    .wrap {
+      padding: 0 1.5rem;
+    }
+
+    .hero {
+      padding: 7rem 0 3rem;
+    }
+
+    .other-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .exp-top {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .wrap {
+      padding: 0 1rem;
+    }
+
+    .hero-name {
+      font-size: 2.8rem;
+    }
+
+    .feat-card {
+      padding: 1.15rem;
+    }
+  }
+</style>
