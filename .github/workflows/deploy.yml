@@ -22,6 +22,8 @@ on:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
 
 concurrency:
   group: pages-deploy
@@ -61,3 +63,15 @@ jobs:
           # alias while production keeps serving the old build, and still
           # report success.
           command: pages deploy dist --project-name tn07 --branch main
+
+      # Republish to GitHub Pages too. Nobody reads the content: it exists so
+      # tejasnafde.github.io keeps 301ing to home.tn07.dev, and GitHub only
+      # serves that redirect while a Pages deployment is published. Without
+      # this, Pages source is build_type=workflow with nothing publishing, so
+      # every run left a failed pages-build-deployment and the redirect rested
+      # on a stale build.
+      # ponytail: reuses the dist we already built rather than a separate stub.
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - uses: actions/deploy-pages@v4
