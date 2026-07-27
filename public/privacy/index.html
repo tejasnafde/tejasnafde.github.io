@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Privacy - tn07</title>
+<style>
+  :root { --bg:#0a0a0a; --surface:#141414; --text:#e2e8f0; --dim:#8b949e; --faint:#484f58; --accent:#58a6ff; --border:rgba(255,255,255,0.07); }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text);
+    font:16px/1.7 ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", sans-serif;
+    padding:48px 24px 96px; }
+  main { max-width:42rem; margin:0 auto; }
+  h1 { font-size:2.2rem; letter-spacing:-0.02em; margin:0 0 .3rem; }
+  .updated { color:var(--faint); font-size:.85rem; margin:0 0 2.5rem;
+    font-family:ui-monospace, SFMono-Regular, Menlo, monospace; }
+  h2 { font-size:1.05rem; margin:2.5rem 0 .6rem; }
+  p, li { color:var(--dim); }
+  strong { color:var(--text); font-weight:600; }
+  code { font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:.9em;
+    background:var(--surface); border:1px solid var(--border); border-radius:5px; padding:.1em .35em; }
+  a { color:var(--accent); }
+  ul { padding-left:1.2rem; }
+  footer { margin-top:3.5rem; padding-top:1.2rem; border-top:1px solid var(--border);
+    color:var(--faint); font-size:.85rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Privacy</h1>
+  <p class="updated">Last updated 2026-07-27</p>
+
+  <p>
+    <strong>tn07</strong> is the publisher name for a set of personal software projects,
+    including <strong>Switchboard</strong>. They are built and maintained by one person.
+    There is no company, no analytics, and no advertising.
+  </p>
+
+  <h2>The short version</h2>
+  <p>
+    These apps run on your own devices and talk to your own machines. No server operated
+    by tn07 receives your data, because there is no such server.
+  </p>
+
+  <h2>Google sign-in and the data it touches</h2>
+  <p>
+    The Switchboard mobile app can sign in with Google. When it does, it requests these
+    OAuth scopes:
+  </p>
+  <ul>
+    <li><code>https://www.googleapis.com/auth/cloud-platform</code> - used solely to open
+      Google Cloud IAP tunnels to Compute Engine instances <em>you already have access
+      to</em>, so the app can reach your own development machines without a VPN.</li>
+    <li><code>openid</code> and <code>email</code> - used solely to display which account is
+      signed in.</li>
+  </ul>
+  <p>
+    The app does not read, modify, or store any other Google Cloud resource. It does not
+    enumerate your projects, billing, or storage. The access is a network tunnel to a host
+    you name.
+  </p>
+
+  <h2>Where credentials are stored</h2>
+  <p>
+    OAuth tokens are stored in the operating system keychain on your device (iOS Keychain
+    or Android Keystore) and never in plain application storage. They are sent only to
+    Google, to obtain tunnel access, and to no other party. They are not transmitted to
+    any server operated by tn07.
+  </p>
+
+  <h2>What is not collected</h2>
+  <ul>
+    <li>No analytics, telemetry, crash reporting, or advertising identifiers.</li>
+    <li>No contact list, location, photos, or microphone access.</li>
+    <li>No chat content, source code, or terminal output leaves your machines. Those live on
+      hardware you control, and the app connects to it directly.</li>
+  </ul>
+
+  <h2>Revoking access</h2>
+  <p>
+    Sign out in the app to delete the stored tokens from your device. To revoke the grant
+    entirely, visit
+    <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>
+    and remove access. Either action takes effect immediately.
+  </p>
+
+  <h2>Third parties</h2>
+  <p>
+    Google Cloud is used for authentication and IAP tunnelling, subject to Google's own
+    privacy policy. Source is published on
+    <a href="https://github.com/tejasnafde">GitHub</a>. Nothing is shared with anyone else,
+    and nothing is sold.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Questions about this policy: <a href="mailto:nafdetejas@gmail.com">nafdetejas@gmail.com</a>
+  </p>
+
+  <footer><a href="/">tn07.dev</a></footer>
+</main>
+</body>
+</html>

@@ -48,7 +48,7 @@ const featuredProjects = [
     name: 'WatchWithMi',
     tagline: 'Synchronized video watching',
     description: 'Real-time shared viewing platform with room-based sync, live chat, and a media bridge service. Full-stack with a Next.js frontend and FastAPI + Socket.IO backend.',
-    tech: ['Next.js', 'FastAPI', 'Socket.IO', 'Redis', 'Tailwind'],
+    tech: ['Next.js', 'FastAPI', 'Socket.IO', 'libtorrent', 'Tailwind'],
     link: null,
     status: 'private',
   },
@@ -84,6 +84,35 @@ const otherProjects = [
     tech: ['Python', 'Flask', 'LangChain'],
     link: 'https://github.com/tejasnafde/radicalize-me-public',
     status: 'public',
+  },
+];
+
+// Tools built to solve a problem once. These four used to live on their own
+// landing page at the apex; folded in here when this site became the apex.
+const tools = [
+  {
+    name: 'Switchboard',
+    description: 'Agent workspace. Reaches work VMs over IAP WebSocket tunnels, so it needs no VPN and no routable SSH port.',
+    tech: ['TypeScript', 'React Native', 'GCP IAP'],
+    link: 'https://github.com/tejasnafde/switchboard',
+  },
+  {
+    name: 'Someday',
+    description: 'Shared memory for friendships. Keeps track of the things you said you would get around to doing together.',
+    tech: ['Python', 'FastAPI', 'PostgreSQL', 'Cloud Run'],
+    link: 'https://github.com/tejasnafde/someday',
+  },
+  {
+    name: 'macremote',
+    description: 'Your Mac, in your pocket. A FastAPI control server paired with a Hammerspoon bridge and a browser extension.',
+    tech: ['Python', 'FastAPI', 'Hammerspoon'],
+    link: 'https://github.com/tejasnafde/macremote',
+  },
+  {
+    name: 'freeflow',
+    description: 'Fast dictation. Low-latency speech capture wired straight into whatever has focus.',
+    tech: ['Swift', 'Whisper'],
+    link: 'https://github.com/tejasnafde/freeflow',
   },
 ];
 
@@ -209,6 +238,32 @@ const skills = [
             </div>
             <p class="other-desc">{p.description}</p>
             {p.note && <p class="other-note">{p.note}</p>}
+            <div class="tags">
+              {p.tech.map((t) => (
+                <span class="tag">{t}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Personal Software (formerly the tn07 apex landing page) -->
+  <section id="tools" class="section section--compact">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num"></span>
+        <h2>Personal Software</h2>
+      </div>
+      <p class="tools-lede">Tools built to solve a problem once.</p>
+      <div class="other-grid other-grid--tools">
+        {tools.map((p) => (
+          <div class="other-card">
+            <div class="other-top">
+              <a href={p.link} target="_blank" rel="noopener" class="other-name">{p.name}</a>
+            </div>
+            <p class="other-desc">{p.description}</p>
             <div class="tags">
               {p.tech.map((t) => (
                 <span class="tag">{t}</span>
@@ -560,6 +615,17 @@ const skills = [
     font-size: 0.75rem;
     font-style: italic;
     color: var(--accent);
+  }
+
+  /* Four tools, so a 2-up reads better than inheriting the 3-up above. */
+  .other-grid--tools {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tools-lede {
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    margin: -1rem 0 1.5rem;
   }
 
   /* ---- Badges ---- */
