@@ -1,4 +1,19 @@
-name: Deploy to GitHub Pages
+# Deploys this site to Cloudflare Pages, which is what actually serves tn07.dev.
+#
+# This used to publish to GitHub Pages. That job was replaced rather than kept
+# alongside, because it had become a trap: tn07.dev is served by the Cloudflare
+# Pages project `tn07`, so a GitHub Pages deploy went green while the live site
+# kept serving the previous build. Nothing reads the GitHub Pages output any
+# more - tejasnafde.github.io 301s to home.tn07.dev, and GitHub issues that
+# redirect from the repo's custom-domain setting whether or not a build is
+# published.
+#
+# Auth: CLOUDFLARE_API_TOKEN here is scoped to Account > Cloudflare Pages > Edit
+# ONLY, and deliberately cannot edit DNS. The DNS token is a separate credential
+# in Secret Manager used by tn07-site/dns.sh. Keep them separate so a
+# compromised CI secret cannot repoint the domain.
+
+name: Deploy to Cloudflare Pages
 
 on:
   push:
@@ -7,34 +22,42 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: pages-deploy
   cancel-in-progress: true
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: cloudflare-pages
+      url: https://tn07.dev
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
-      - run: npm run build
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - run: npm ci
+
+      - run: npm run build
+
+      # Fail loudly if the OAuth privacy policy went missing from the build.
+      # It is served at tn07.dev/privacy, a Google verification reviewer reads
+      # it, and every personal app shares that one consent screen. Losing it
+      # would otherwise fail silently as a 404 on a path nothing links to.
+      - name: Verify /privacy survived the build
+        run: test -f dist/privacy/index.html
+
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ead98e71ae0ee06c6d5fa8742f18409a
+          # --branch main is REQUIRED. wrangler picks the Pages environment from
+          # the branch it detects, so without it a run can publish a preview
+          # alias while production keeps serving the old build, and still
+          # report success.
+          command: pages deploy dist --project-name tn07 --branch main
