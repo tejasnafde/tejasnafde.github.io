@@ -138,6 +138,14 @@
 }
 
 /* ---------------- base ---------------- */
+/* In @layer base so Tailwind's utilities, which live in a LATER layer, can
+   beat it. Unlayered CSS beats every layer regardless of specificity, so an
+   unlayered `* { margin:0; padding:0 }` silently voided every p-*, m-* and
+   space-* utility in any Tailwind app that loads this file. That is not a
+   specificity problem and :where() does not fix it. Verified in a browser.
+   :focus-visible, .num and .label stay unlayered on purpose: focus must not
+   be beatable, and the two helper classes are opt-in. */
+@layer base {
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -161,6 +169,8 @@ p { text-wrap: pretty; max-width: var(--measure); }
 
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+}
 
 :focus-visible {
   outline: 2px solid var(--accent);
