@@ -1,0 +1,15 @@
+# Cloudflare Pages response headers.
+#
+# CORS only. ring.js and the design tokens are fetched by the other tn07 sites,
+# so they are cross-origin from every caller except this one.
+#
+# Do NOT try to set Cache-Control here. Pages manages caching for static assets
+# and silently drops that directive: setting max-age=60 was tested and the edge
+# kept serving max-age=14400. It does not matter anyway, because Pages purges
+# its own edge cache on every deploy. Measured propagation to tn07.dev after a
+# deploy was 15 seconds, not 4 hours.
+/ring.js
+  Access-Control-Allow-Origin: *
+
+/design/*
+  Access-Control-Allow-Origin: *

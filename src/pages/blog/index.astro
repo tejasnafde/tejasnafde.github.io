@@ -9,7 +9,7 @@ const posts = (await getCollection('blog', ({ data }) => {
 })).sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 ---
 
-<BaseLayout title="Writing — Tejas Nafde" description="Engineering notes and technical writing by Tejas Nafde">
+<BaseLayout title="Writing - Tejas Nafde" description="Engineering notes and technical writing by Tejas Nafde">
   <section class="blog-page">
     <div class="blog-inner">
       <h1>Writing</h1>
@@ -23,11 +23,11 @@ const posts = (await getCollection('blog', ({ data }) => {
             <a href={`/blog/${post.id}`} class="post-row">
               <div class="post-info">
                 <div class="post-title-row">
-                  {post.data.status === 'draft' && <span class="draft-badge">draft</span>}
+                  {post.data.status === 'draft' && <span class="draft-badge label">draft</span>}
                   <h2>{post.data.title}</h2>
                 </div>
                 {post.data.description && <p class="post-desc">{post.data.description}</p>}
-                <div class="post-meta">
+                <div class="post-meta label num">
                   <time datetime={post.data.date}>
                     {new Date(post.data.date).toLocaleDateString('en-US', {
                       year: 'numeric',
@@ -44,7 +44,7 @@ const posts = (await getCollection('blog', ({ data }) => {
               {post.data.tags && (
                 <div class="post-tags">
                   {post.data.tags.map((tag) => (
-                    <span class="tag">{tag}</span>
+                    <span class="tag label">{tag}</span>
                   ))}
                 </div>
               )}
@@ -58,7 +58,7 @@ const posts = (await getCollection('blog', ({ data }) => {
 
 <style>
   .blog-page {
-    padding: 8rem 2rem 2rem;
+    padding: calc(var(--sp-8) + var(--sp-6)) var(--sp-6) var(--sp-5);
   }
 
   .blog-inner {
@@ -67,25 +67,20 @@ const posts = (await getCollection('blog', ({ data }) => {
   }
 
   h1 {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-weight: 400;
-    font-size: 2.5rem;
-    color: var(--text-bright);
-    margin-bottom: 0.5rem;
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    margin-bottom: var(--sp-2);
   }
 
   .blog-desc {
-    color: var(--text-dim);
-    font-size: 0.9rem;
-    margin-bottom: 3rem;
-    letter-spacing: 0.01em;
+    color: var(--ink-2);
+    font-size: var(--text-sm);
+    margin-bottom: var(--sp-6);
   }
 
   .empty {
-    color: var(--text-dim);
-    font-style: italic;
-    font-size: 0.9rem;
+    color: var(--ink-3);
+    font-size: var(--text-sm);
   }
 
   .post-list {
@@ -97,18 +92,18 @@ const posts = (await getCollection('blog', ({ data }) => {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 2rem;
-    padding: 1.25rem 0;
-    border-bottom: 1px solid var(--border);
-    transition: border-color 0.15s;
+    gap: var(--sp-5);
+    padding: var(--sp-4) 0;
+    border-bottom: 1px solid var(--line);
+    color: inherit;
   }
 
   .post-row:first-child {
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--line);
   }
 
   .post-row:hover {
-    border-color: var(--border-bright);
+    text-decoration: none;
   }
 
   .post-info {
@@ -118,26 +113,22 @@ const posts = (await getCollection('blog', ({ data }) => {
   .post-title-row {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.2rem;
+    gap: var(--sp-2);
+    margin-bottom: var(--sp-1);
   }
 
   .draft-badge {
-    font-size: 0.6rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.1rem 0.4rem;
-    border: 1px solid #c9a84c;
-    color: #c9a84c;
+    border: 1px solid var(--accent);
+    border-radius: var(--r-pill);
+    color: var(--accent);
+    padding: 1px var(--sp-2);
     flex-shrink: 0;
   }
 
   .post-title-row h2 {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-weight: 400;
-    font-size: 1.15rem;
-    color: var(--text-bright);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    transition: color var(--dur-1) var(--ease);
   }
 
   .post-row:hover h2 {
@@ -145,20 +136,16 @@ const posts = (await getCollection('blog', ({ data }) => {
   }
 
   .post-desc {
-    color: var(--text);
-    font-size: 0.82rem;
-    line-height: 1.6;
-    margin-bottom: 0.3rem;
+    color: var(--ink-2);
+    font-size: var(--text-sm);
+    margin-bottom: var(--sp-1);
   }
 
   .post-meta {
     display: flex;
-    gap: 0.4rem;
+    gap: var(--sp-2);
     align-items: center;
-    font-size: 0.75rem;
-    color: var(--text-dim);
     flex-wrap: wrap;
-    letter-spacing: 0.02em;
   }
 
   .sep {
@@ -167,17 +154,16 @@ const posts = (await getCollection('blog', ({ data }) => {
 
   .post-tags {
     display: flex;
-    gap: 0.25rem;
+    gap: var(--sp-1);
     flex-wrap: wrap;
     flex-shrink: 0;
     align-self: center;
   }
 
   .tag {
-    font-size: 0.6rem;
-    letter-spacing: 0.03em;
-    color: var(--text-dim);
-    background: rgba(201, 168, 76, 0.15);
-    padding: 0.1rem 0.4rem;
+    background: var(--accent-subtle);
+    color: var(--ink-2);
+    padding: 1px var(--sp-2);
+    border-radius: var(--r-sm);
   }
 </style>

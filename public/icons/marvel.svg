@@ -1,0 +1,10 @@
+<!-- marvel.tn07.dev serves no favicon, so this recreates the site's own brand
+     glyph (the rotated diamond from its top bar) in its accent #FF5A1F. If the
+     site ever ships a real favicon, replace this file with it. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="6" fill="#0B0D10"/>
+  <g transform="rotate(45 16 16)">
+    <rect x="8.5" y="8.5" width="15" height="15" fill="none" stroke="#FF5A1F" stroke-width="2"/>
+    <rect x="13" y="13" width="6" height="6" fill="#FF5A1F"/>
+  </g>
+</svg>

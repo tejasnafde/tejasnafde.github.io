@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tn07.dev/sitemap-index.xml

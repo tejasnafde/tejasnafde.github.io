@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
@@ -7,4 +8,5 @@ export default defineConfig({
   // 301s here via the repo's Pages custom domain.
   site: 'https://tn07.dev',
   output: 'static',
+  integrations: [sitemap()],
 });
