@@ -6,64 +6,85 @@ const posts = (await getCollection('blog', ({ data }) => data.status === 'publis
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
   .slice(0, 3);
 
-const experience = [
-  {
-    role: 'Software Development Engineer',
-    company: 'GeoIQ',
-    companyNote: 'a Lenskart company',
-    url: 'https://geoiq.io',
-    period: 'Jun 2025 - Present',
-    highlights: [
-      'Own an end-to-end automated pipeline that transforms survey data into client-specific presentations, generating each in 30s-5min.',
-      'Designed a decorator-based caching layer with conditional invalidation, reducing API latency by 80% for cached sections.',
-      'Built a standalone payment and invoicing service with idempotent verification and webhook-driven state management.',
-      'Architected a real-time messaging platform used across three production applications using WebSockets and Pub/Sub.',
-      'Integrated telephony with automated call summaries, shared broker notes, and webhook-driven state tracking.',
-    ],
-  },
-  {
-    role: 'Software Development Engineer Intern',
-    company: 'GeoIQ',
-    companyNote: 'a Lenskart company',
-    url: 'https://geoiq.io',
-    period: 'Jan - Jun 2025',
-    highlights: [
-      'Built a FastAPI WebSocket gateway with room-based messaging and centralized connection lifecycle management.',
-      'Developed Slack-based admin tooling with approval workflows for safe GCP Compute Engine operations.',
-      'Designed a feature-flagged multi-channel notification system (push, WhatsApp, email) with delivery-state tracking.',
-    ],
-  },
-];
+const experience = {
+  company: 'GeoIQ',
+  companyNote: 'a Lenskart company',
+  url: 'https://geoiq.io',
+  period: 'Jan 2025 - Present',
+  roles: [
+    { role: 'Software Development Engineer', period: 'Jun 2025 - Present' },
+    { role: 'Software Development Engineer Intern', period: 'Jan 2025 - Jun 2025' },
+  ],
+  groups: [
+    {
+      name: 'AI and developer systems',
+      highlights: [
+        'Rebuilt Lenskart\'s WhatsApp analytics assistant on Gemini, moved access checks server-side, and closed a production data leak.',
+        'Built an evaluation suite that supported a cheaper Gemini model, cutting daily spend by about 88% and making responses about 3x faster.',
+        'Built an RCA agent that reproduces issues in isolated worktrees and traces production data, logs, and code, reducing resolution time from days to hours.',
+      ],
+    },
+    {
+      name: 'Data and product platforms',
+      highlights: [
+        'Replaced record-level Airbyte syncs with Parquet and streamed COPY in BigQuery-to-Postgres Airflow pipelines, cutting full-mart refresh time by 94-96%.',
+        'Built self-serve payments, invoicing, subscription contracts, and expiry workflows with Razorpay, Zoho Books, and verified idempotent webhooks.',
+        'Designed conditional caching for report sections, reducing report-generation latency by 80%+.',
+      ],
+    },
+    {
+      name: 'Automation and operations',
+      highlights: [
+        'Own the pipeline that turns field surveys and geospatial data into client-ready presentations in 30 seconds to 5 minutes.',
+        'Architected real-time messaging used across three production applications with WebSockets and Pub/Sub.',
+        'Built Slack administration, customer notification, and telephony systems with approvals, delivery tracking, idempotent call-state webhooks, and shared summaries.',
+      ],
+    },
+  ],
+};
 
-// The live directory. This is the catalog that ring.js points at ("All N"
-// lands on #tools), so it must track APPS in public/ring.js: same sites, same
-// cat values (play / tools / read). Every entry here is deployed and the whole
-// row is a link to it.
-const liveSites = [
-  { cat: 'fun', name: 'Follymarket', host: 'follymarket.tn07.dev', icon: '/icons/follymarket.svg', blurb: 'Play-money prediction markets. Make a market, trade a position, see who called it.' },
-  { cat: 'fun', name: 'Board Games', host: 'gaming.tn07.dev', icon: '/icons/gaming.svg', blurb: 'Battleship, Connect 4 and Labyrinth in the browser, no physical set needed.' },
-  { cat: 'fun', name: 'Marvel Syllabus', host: 'marvel.tn07.dev', icon: '/icons/marvel.svg', blurb: 'A continuity-ordered reading syllabus for 65 years of Marvel comics.' },
-  { cat: 'tools', name: 'WatchWithMi', host: 'watchwithmi.tn07.dev', icon: '/icons/watchwithmi.svg', blurb: 'Watch things together, in sync. Rooms, chat, and a shared player.' },
-  { cat: 'tools', name: 'Someday', host: 'someday.tn07.dev', icon: '/icons/someday.png', blurb: 'Shared memory for friendships. The things you said you would get around to.' },
-  { cat: 'tools', name: 'Scout', host: 'scout.tn07.dev', icon: '/icons/scout.svg', blurb: 'Remote jobs, scored against your profile.' },
-];
-
-// Code-only projects. The live sites live in liveSites above; this list is
-// only things whose home is a repo. Cut deliberately: no abandoned work, no
-// OSS contributions to other people's projects.
-const projects = [
+// The work to lead with. The #tools anchor stays here because ring.js sends
+// its "All N" link to this part of the homepage.
+const featuredWork = [
   {
     name: 'Switchboard',
+    host: 'switchboard.tn07.dev',
     icon: '/icons/switchboard.png',
-    description: 'Agent workspace. Reaches work VMs over IAP WebSocket tunnels, so it needs no VPN and no routable SSH port.',
-    tech: ['TypeScript', 'Electron', 'GCP IAP'],
-    link: 'https://github.com/tejasnafde/switchboard',
+    blurb: 'One workspace for coding agents, terminals, files, and git worktrees, on your machine or over SSH.',
   },
+  {
+    name: 'Someday',
+    host: 'someday.tn07.dev',
+    icon: '/icons/someday.png',
+    blurb: 'Shared memory for friendships. Keep the recommendations, plans, and small promises you want to return to.',
+  },
+  {
+    name: 'Scout',
+    host: 'scout.tn07.dev',
+    icon: '/icons/scout.svg',
+    blurb: 'Remote jobs scored against your profile, so the strongest matches rise first.',
+  },
+  {
+    name: 'WatchWithMi',
+    host: 'watchwithmi.tn07.dev',
+    icon: '/icons/watchwithmi.svg',
+    blurb: 'Watch together from different places with synchronized playback, rooms, and chat.',
+  },
+];
+
+const funSites = [
+  { name: 'Follymarket', host: 'follymarket.tn07.dev', icon: '/icons/follymarket.svg', blurb: 'Play-money prediction markets.' },
+  { name: 'Board Games', host: 'gaming.tn07.dev', icon: '/icons/gaming.svg', blurb: 'Battleship, Connect 4, and Labyrinth in the browser.' },
+  { name: 'Marvel Syllabus', host: 'marvel.tn07.dev', icon: '/icons/marvel.svg', blurb: 'A continuity-ordered reading syllabus for 65 years of Marvel comics.' },
+];
+
+// Smaller engineering work whose main destination is a repository.
+const projects = [
   {
     name: 'macremote',
     icon: '/icons/macremote.png',
-    description: 'Your Mac, in your pocket. A FastAPI control server paired with a Hammerspoon bridge and a browser extension.',
-    tech: ['Python', 'FastAPI', 'Hammerspoon'],
+    description: 'A self-hosted Android remote for your Mac. Control media, volume, brightness, lock, and sleep over Tailscale.',
+    tech: ['React Native', 'FastAPI', 'Hammerspoon'],
     link: 'https://github.com/tejasnafde/macremote',
   },
   {
@@ -86,14 +107,16 @@ const projects = [
   },
   {
     name: 'learnlang',
-    description: 'A voice tutor for one user. Talk to it in the language you are learning, it talks back, and it remembers what you got wrong.',
+    description: 'A personalized voice tutor. It adapts its curriculum from your conversations, remembered mistakes, and spaced repetition.',
     tech: ['Python', 'Vertex AI', 'Speech'],
-    link: 'https://github.com/tejasnafde/learnlang',
+    link: null,
+    status: 'coming-soon',
   },
   {
     name: 'Unetsim-Routing',
     description: 'Multi-layered underwater sensor network and routing protocol built on UnetStack.',
     note: 'Research project under Prof. Sarang C. Dhongdi, BITS Pilani Goa',
+    noteUrl: 'https://www.bits-pilani.ac.in/goa/sarang-chandrashekhar-dhongdi/',
     tech: ['Java', 'Groovy', 'UnetStack'],
     link: 'https://github.com/tejasnafde/Unetsim-Routing',
   },
@@ -109,15 +132,12 @@ const projects = [
 
 const stack = [
   { group: 'Languages', items: ['Python', 'TypeScript', 'SQL'] },
-  { group: 'Backend', items: ['FastAPI', 'Flask', 'WebSockets', 'Socket.IO'] },
-  { group: 'Frontend', items: ['React', 'Next.js', 'Electron'] },
-  { group: 'Data', items: ['MongoDB', 'PostgreSQL', 'SQLite', 'Redis'] },
-  { group: 'Infra', items: ['GCP', 'Docker', 'Fly.io', 'Linux'] },
-  { group: 'APIs', items: ['Razorpay', 'Zoho', 'Slack API', 'LLM APIs'] },
+  { group: 'Backend', items: ['FastAPI', 'Flask', 'Node.js', 'WebSockets'] },
+  { group: 'Data', items: ['PostgreSQL/PostGIS', 'BigQuery', 'MongoDB', 'Redis', 'SQLite'] },
+  { group: 'Infrastructure', items: ['GCP', 'Cloud Run', 'Pub/Sub', 'Airflow', 'Docker', 'Linux'] },
+  { group: 'AI', items: ['Gemini', 'Vertex AI'] },
 ];
 
-const catLabels = { fun: 'Fun', tools: 'Tools' };
-const cats = ['fun', 'tools'];
 ---
 
 <BaseLayout title="Tejas Nafde - Software Engineer">
@@ -129,10 +149,11 @@ const cats = ['fun', 'tools'];
       <div class="hero-lower">
         <p class="hero-desc">
           I build backend systems, real-time infrastructure, and developer tools.
-          Currently engineering at <a href="https://geoiq.io" target="_blank" rel="noopener">GeoIQ</a>.
-          BITS Pilani, Goa alumnus.
+          Currently at <a href="https://geoiq.io" target="_blank" rel="noopener">GeoIQ</a>, a Lenskart company.
+          BITS Pilani Goa alumnus.
         </p>
         <div class="hero-links">
+          <a href="#projects">selected work</a>
           <a href="https://github.com/tejasnafde" target="_blank" rel="noopener">github</a>
           <a href="https://www.linkedin.com/in/tejas-nafde/" target="_blank" rel="noopener">linkedin</a>
           <a href="mailto:nafdetejas@gmail.com">email</a>
@@ -142,66 +163,64 @@ const cats = ['fun', 'tools'];
     </div>
   </section>
 
-  <!-- Projects: the live directory (which ring.js lands on via #tools) plus
-       code-only work, one section. -->
+  <!-- Projects -->
   <section id="projects" class="section">
     <div class="wrap">
       <span id="tools" class="anchor" aria-hidden="true"></span>
       <div class="section-head">
         <h2>Projects</h2>
-        <p class="section-lede">The live ones you can just go use. Everything else is on GitHub.</p>
+        <p class="section-lede">Products you can use, followed by smaller engineering work.</p>
       </div>
-      <div class="dir">
-        {cats.map((cat) => (
-          <Fragment>
-            {liveSites.filter((s) => s.cat === cat).map((s, i) => s.soon ? (
-              <div class="dir-row dir-row--soon">
-                <span class="dir-cat label">{i === 0 ? catLabels[cat] : ''}</span>
-                <img class="dir-icon" src={s.icon} alt="" width="28" height="28" loading="lazy" />
-                <span class="dir-main">
-                  <b class="dir-name">{s.name}</b>
-                  <span class="dir-blurb">{s.blurb}</span>
-                </span>
-                <span class="dir-host">soon</span>
-                <span class="dir-chev" aria-hidden="true"></span>
+      <div class="project-group">
+        <div class="group-head">
+          <h3>Featured work</h3>
+        </div>
+        <div class="featured-list">
+          {featuredWork.map((p, i) => (
+            <a href={`https://${p.host}`} class="featured-row">
+              <span class="featured-index label num">{String(i + 1).padStart(2, '0')}</span>
+              <img class="featured-icon" src={p.icon} alt="" width="40" height="40" loading={i === 0 ? 'eager' : 'lazy'} />
+              <span class="featured-main">
+                <b class="featured-name">{p.name}</b>
+                <span class="featured-blurb">{p.blurb}</span>
+              </span>
+              <span class="featured-host">{p.host}</span>
+              <span class="featured-chev" aria-hidden="true">&rsaquo;</span>
+            </a>
+          ))}
+        </div>
+      </div>
+      <div class="project-group">
+        <div class="group-head">
+          <h3>More engineering work</h3>
+        </div>
+        <div class="card-grid">
+          {projects.map((p) => (
+            <div class={`card ${p.link ? '' : 'card--flat'}`}>
+              <div class="card-top">
+                {p.icon && <img class="card-icon" src={p.icon} alt="" width="22" height="22" loading="lazy" />}
+                {p.link ? (
+                  <a href={p.link} target="_blank" rel="noopener" class="card-name">{p.name}</a>
+                ) : (
+                  <span class="card-name">{p.name}</span>
+                )}
+                {p.link && <span class="card-gh label">github &rsaquo;</span>}
+                {p.status && <span class={`badge label badge--${p.status}`}>{p.status}</span>}
               </div>
-            ) : (
-              <a href={`https://${s.host}`} class="dir-row">
-                <span class="dir-cat label">{i === 0 ? catLabels[cat] : ''}</span>
-                <img class="dir-icon" src={s.icon} alt="" width="28" height="28" loading="lazy" />
-                <span class="dir-main">
-                  <b class="dir-name">{s.name}</b>
-                  <span class="dir-blurb">{s.blurb}</span>
-                </span>
-                <span class="dir-host">{s.host}</span>
-                <span class="dir-chev" aria-hidden="true">&rsaquo;</span>
-              </a>
-            ))}
-          </Fragment>
-        ))}
-      </div>
-      <div class="card-grid">
-        {projects.map((p) => (
-          <div class={`card ${p.link ? '' : 'card--flat'}`}>
-            <div class="card-top">
-              {p.icon && <img class="card-icon" src={p.icon} alt="" width="22" height="22" loading="lazy" />}
-              {p.link ? (
-                <a href={p.link} target="_blank" rel="noopener" class="card-name">{p.name}</a>
+              <p class="card-desc">{p.description}</p>
+              {p.note && (p.noteUrl ? (
+                <a href={p.noteUrl} target="_blank" rel="noopener" class="card-note">{p.note}</a>
               ) : (
-                <span class="card-name">{p.name}</span>
-              )}
-              {p.link && <span class="card-gh label">github &rsaquo;</span>}
-              {p.status && <span class={`badge label badge--${p.status}`}>{p.status}</span>}
-            </div>
-            <p class="card-desc">{p.description}</p>
-            {p.note && <p class="card-note">{p.note}</p>}
-            <div class="tags">
-              {p.tech.map((t) => (
-                <span class="tag label">{t}</span>
+                <p class="card-note">{p.note}</p>
               ))}
+              <div class="tags">
+                {p.tech.map((t) => (
+                  <span class="tag label">{t}</span>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   </section>
@@ -212,25 +231,39 @@ const cats = ['fun', 'tools'];
       <div class="section-head">
         <h2>Experience</h2>
       </div>
-      <div class="exp-list">
-        {experience.map((job, i) => (
-          <div class={`exp-block ${i > 0 ? 'exp-block--later' : ''}`}>
-            <div class="exp-top">
-              <div>
-                <span class="exp-role">{job.role}</span>
-                <a href={job.url} target="_blank" rel="noopener" class="exp-company">
-                  {job.company} <span class="exp-note">({job.companyNote})</span>
-                </a>
-              </div>
-              <span class="exp-period label num">{job.period}</span>
-            </div>
-            <ul class="exp-bullets">
-              {job.highlights.map((h) => (
-                <li>{h}</li>
-              ))}
-            </ul>
+      <div class="experience">
+        <div class="experience-head">
+          <div>
+            <a href={experience.url} target="_blank" rel="noopener" class="experience-company">
+              {experience.company}
+            </a>
+            <span class="experience-note">{experience.companyNote}</span>
           </div>
-        ))}
+          <span class="experience-period label num">{experience.period}</span>
+        </div>
+        <div class="role-timeline">
+          {experience.roles.map((role, i) => (
+            <div class="role-step">
+              <span class="role-index label num">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <span class="role-name">{role.role}</span>
+                <span class="role-period label num">{role.period}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="impact-grid">
+          {experience.groups.map((group) => (
+            <div class="impact-group">
+              <h3 class="impact-label label">{group.name}</h3>
+              <ul class="impact-list">
+                {group.highlights.map((highlight) => (
+                  <li>{highlight}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </section>
@@ -280,11 +313,34 @@ const cats = ['fun', 'tools'];
     </section>
   )}
 
+  <!-- For fun -->
+  <section id="fun" class="section section--compact">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>For fun</h2>
+        <p class="section-lede">Small sites built for friends, games, and curiosity.</p>
+      </div>
+      <div class="fun-list">
+        {funSites.map((site) => (
+          <a href={`https://${site.host}`} class="fun-row">
+            <img class="fun-icon" src={site.icon} alt="" width="28" height="28" loading="lazy" />
+            <span class="fun-main">
+              <b class="fun-name">{site.name}</b>
+              <span class="fun-blurb">{site.blurb}</span>
+            </span>
+            <span class="fun-host">{site.host}</span>
+            <span class="fun-chev" aria-hidden="true">&rsaquo;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Contact -->
   <section class="section section--contact">
     <div class="wrap">
       <h2 class="contact-title">Let's talk.</h2>
-      <p class="contact-desc">Open to interesting conversations about engineering, side projects, or new opportunities.</p>
+      <p class="contact-desc">Have an interesting engineering problem, a useful product idea, or a role with real ownership? Send me a note.</p>
       <a href="mailto:nafdetejas@gmail.com" class="contact-link">nafdetejas@gmail.com &rarr;</a>
     </div>
   </section>
@@ -384,142 +440,248 @@ const cats = ['fun', 'tools'];
     top: calc(-1 * var(--sp-7));
   }
 
-  /* ---- Live directory: index rows with hairlines and a chevron ---- */
-  .dir {
+  /* ---- Featured work: large index rows ---- */
+  .project-group + .project-group {
+    margin-top: var(--sp-7);
+  }
+
+  .group-head {
+    margin-bottom: var(--sp-3);
+  }
+
+  .group-head h3 {
+    font-size: var(--text-md);
+    font-weight: 650;
+  }
+
+  .featured-list,
+  .fun-list {
     border-top: 1px solid var(--line);
   }
 
-  .dir-row {
+  .featured-row {
     display: grid;
-    grid-template-columns: 72px 28px minmax(0, 1fr) auto 20px;
+    grid-template-columns: 36px 40px minmax(0, 1fr) auto 20px;
     gap: var(--sp-4);
-    align-items: baseline;
-    padding: var(--sp-4) var(--sp-2);
+    align-items: center;
+    padding: var(--sp-5) var(--sp-2);
     border-bottom: 1px solid var(--line);
     color: inherit;
     transition: background var(--dur-1) var(--ease);
   }
 
-  a.dir-row:hover {
+  .featured-row:hover,
+  .fun-row:hover {
     background: var(--surface);
     text-decoration: none;
   }
 
-  /* In the ring but not deployed yet: visibly a different thing, not a link. */
-  .dir-row--soon .dir-name,
-  .dir-row--soon .dir-blurb {
-    color: var(--ink-3);
-  }
-
-  .dir-cat {
+  .featured-index {
     color: var(--accent);
   }
 
-  .dir-main {
+  .featured-main,
+  .fun-main {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: var(--sp-1);
   }
 
-  .dir-name {
-    font-weight: 700;
-    font-size: var(--text-lg);
+  .featured-name {
+    font-weight: 750;
+    font-size: var(--text-xl);
     letter-spacing: var(--track-head);
   }
 
-  .dir-row:hover .dir-name {
+  .featured-row:hover .featured-name,
+  .fun-row:hover .fun-name {
     color: var(--accent);
   }
 
-  .dir-blurb {
+  .featured-blurb,
+  .fun-blurb {
     color: var(--ink-2);
     font-size: var(--text-sm);
   }
 
-  .dir-host {
+  .featured-host,
+  .fun-host {
     white-space: nowrap;
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--ink-3);
   }
 
-  .dir-icon {
-    width: 28px;
-    height: 28px;
-    border-radius: 7px;
-    align-self: center;
-    /* someday.png has a white plate; a hairline keeps it from floating on dark */
+  .featured-icon,
+  .fun-icon {
     border: 1px solid var(--line);
     background: var(--surface);
     object-fit: cover;
   }
 
-  .dir-chev {
+  .featured-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 9px;
+  }
+
+  .featured-chev,
+  .fun-chev {
     color: var(--ink-3);
     font-size: var(--text-lg);
     line-height: 1;
     transition: transform var(--dur-1) var(--ease), color var(--dur-1) var(--ease);
   }
 
-  .dir-row:hover .dir-chev {
+  .featured-row:hover .featured-chev,
+  .fun-row:hover .fun-chev {
     color: var(--accent);
     transform: translateX(3px);
   }
 
+  /* ---- Fun: a smaller directory near the end of the page ---- */
+  .fun-row {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr) auto 20px;
+    gap: var(--sp-4);
+    align-items: center;
+    padding: var(--sp-3) var(--sp-2);
+    border-bottom: 1px solid var(--line);
+    color: inherit;
+    transition: background var(--dur-1) var(--ease);
+  }
+
+  .fun-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+  }
+
+  .fun-main {
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--sp-3);
+  }
+
+  .fun-name {
+    min-width: 132px;
+    font-size: var(--text-md);
+    font-weight: 700;
+    letter-spacing: var(--track-head);
+  }
+
   /* ---- Experience ---- */
-  .exp-block {
-    padding-bottom: var(--sp-6);
-  }
-
-  .exp-block--later {
-    padding-top: var(--sp-6);
-    border-top: 1px solid var(--line);
-  }
-
-  .exp-top {
+  .experience-head {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: baseline;
     gap: var(--sp-5);
     margin-bottom: var(--sp-4);
   }
 
-  .exp-role {
-    display: block;
-    font-size: var(--text-lg);
-    font-weight: 600;
+  .experience-company {
+    font-size: var(--text-xl);
+    font-weight: 750;
+    letter-spacing: var(--track-head);
+    color: var(--ink);
   }
 
-  .exp-company {
+  .experience-company:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .experience-note {
+    margin-left: var(--sp-2);
     font-size: var(--text-sm);
-    color: var(--ink-2);
-  }
-
-  .exp-note {
     color: var(--ink-3);
   }
 
-  .exp-period {
-    white-space: nowrap;
-    padding-top: var(--sp-1);
+  .experience-period,
+  .role-period {
+    color: var(--ink-3);
   }
 
-  .exp-bullets {
+  .experience-period {
+    white-space: nowrap;
+  }
+
+  .role-timeline {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .role-step {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr);
+    gap: var(--sp-3);
+    padding: var(--sp-4) var(--sp-3);
+  }
+
+  .role-step + .role-step {
+    border-left: 1px solid var(--line);
+  }
+
+  .role-index {
+    color: var(--accent);
+    padding-top: 2px;
+  }
+
+  .role-name,
+  .role-period {
+    display: block;
+  }
+
+  .role-name {
+    font-size: var(--text-md);
+    font-weight: 650;
+  }
+
+  .role-period {
+    margin-top: 2px;
+  }
+
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: var(--sp-6);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .impact-group {
+    padding: var(--sp-5) var(--sp-4);
+  }
+
+  .impact-group + .impact-group {
+    border-left: 1px solid var(--line);
+  }
+
+  .impact-label {
+    color: var(--accent);
+    margin-bottom: var(--sp-4);
+  }
+
+  .impact-list {
     list-style: none;
     padding: 0;
-    max-width: var(--measure);
   }
 
-  .exp-bullets li {
+  .impact-list li {
     position: relative;
     padding-left: var(--sp-5);
-    margin-bottom: var(--sp-2);
+    margin-bottom: var(--sp-4);
     color: var(--ink-2);
     font-size: var(--text-sm);
   }
 
-  /* Accent hairline as the bullet marker. */
-  .exp-bullets li::before {
+  .impact-list li:last-child {
+    margin-bottom: 0;
+  }
+
+  .impact-list li::before {
     content: '';
     position: absolute;
     left: 0;
@@ -529,12 +691,11 @@ const cats = ['fun', 'tools'];
     background: var(--accent);
   }
 
-  /* ---- Projects: one card, two sizes ---- */
+  /* ---- More engineering work ---- */
   .card-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--sp-4);
-    margin-top: var(--sp-5);
   }
 
   .card-icon {
@@ -630,6 +791,13 @@ const cats = ['fun', 'tools'];
     color: var(--accent);
   }
 
+  a.card-note {
+    position: relative;
+    z-index: 1;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
   /* ---- Badges ---- */
   .badge {
     padding: 2px var(--sp-2);
@@ -667,7 +835,7 @@ const cats = ['fun', 'tools'];
 
   .stack-row {
     display: grid;
-    grid-template-columns: 96px minmax(0, 1fr);
+    grid-template-columns: 120px minmax(0, 1fr);
     gap: var(--sp-4);
     align-items: baseline;
     padding: var(--sp-3) var(--sp-2);
@@ -794,31 +962,59 @@ const cats = ['fun', 'tools'];
       padding: calc(var(--sp-8) + var(--sp-5)) 0 var(--sp-6);
     }
 
-    .exp-top {
-      flex-direction: column;
-      gap: var(--sp-1);
+    .role-timeline,
+    .impact-grid {
+      grid-template-columns: 1fr;
     }
 
-    .dir-row {
+    .role-step + .role-step,
+    .impact-group + .impact-group {
+      border-left: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .featured-row {
+      grid-template-columns: 28px 36px minmax(0, 1fr) 20px;
+      gap: var(--sp-3);
+      padding: var(--sp-4) var(--sp-1);
+    }
+
+    .featured-icon {
+      width: 36px;
+      height: 36px;
+    }
+
+    .featured-host,
+    .fun-host {
+      display: none;
+    }
+
+    .fun-row {
       grid-template-columns: 28px minmax(0, 1fr) 20px;
-      gap: var(--sp-1) var(--sp-3);
-      align-items: center;
+      gap: var(--sp-3);
     }
 
-    .dir-cat {
-      grid-column: 1 / -1;
+    .fun-main {
+      flex-direction: column;
+      gap: 2px;
     }
 
-    .dir-cat:empty {
-      display: none;
-    }
-
-    .dir-host {
-      display: none;
+    .fun-name {
+      min-width: 0;
     }
   }
 
   @media (max-width: 560px) {
+    .hero-links {
+      gap: var(--sp-2);
+    }
+
+    .experience-head {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: var(--sp-1);
+    }
+
     .card-grid {
       grid-template-columns: 1fr;
     }

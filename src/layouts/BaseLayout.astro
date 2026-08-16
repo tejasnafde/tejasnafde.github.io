@@ -13,6 +13,7 @@ const { title, description = 'Tejas Nafde - Software Engineer' } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#F7F6F4" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <script is:inline>
       // Set the theme before first paint or the page flashes. Explicit value
@@ -24,6 +25,8 @@ const { title, description = 'Tejas Nafde - Software Engineer' } = Astro.props;
           t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
         document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t;
+        document.querySelector('meta[name="theme-color"]').content = t === 'dark' ? '#0A0A0C' : '#F7F6F4';
       })();
     </script>
     <link rel="stylesheet" href="/design/tokens.css" />
@@ -36,6 +39,7 @@ const { title, description = 'Tejas Nafde - Software Engineer' } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <nav class="nav">
       <div class="nav-inner">
         <a href="/" class="nav-logo">tejas nafde</a>
@@ -56,7 +60,7 @@ const { title, description = 'Tejas Nafde - Software Engineer' } = Astro.props;
         </div>
       </div>
     </nav>
-    <main>
+    <main id="main-content" tabindex="-1">
       <slot />
     </main>
     <footer class="footer">
@@ -74,6 +78,8 @@ const { title, description = 'Tejas Nafde - Software Engineer' } = Astro.props;
       document.querySelector('.theme-btn').addEventListener('click', function () {
         var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
         document.documentElement.dataset.theme = next;
+        document.documentElement.style.colorScheme = next;
+        document.querySelector('meta[name="theme-color"]').content = next === 'dark' ? '#0A0A0C' : '#F7F6F4';
         try { localStorage.setItem('theme', next); } catch (e) {}
       });
     </script>
@@ -86,6 +92,25 @@ const { title, description = 'Tejas Nafde - Software Engineer' } = Astro.props;
 </style>
 
 <style>
+  .skip-link {
+    position: fixed;
+    top: var(--sp-2);
+    left: var(--sp-2);
+    z-index: 200;
+    padding: var(--sp-2) var(--sp-3);
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    border-radius: var(--r-btn);
+    color: var(--ink);
+    transform: translateY(calc(-100% - var(--sp-4)));
+    transition: transform var(--dur-1) var(--ease);
+  }
+
+  .skip-link:focus-visible {
+    transform: translateY(0);
+    text-decoration: none;
+  }
+
   .nav {
     position: fixed;
     top: 0;

@@ -26,3 +26,14 @@
 ::-webkit-scrollbar-thumb { background: var(--line-2); }
 
 html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+
+a,
+button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+section[id],
+main[id] {
+  scroll-margin-top: 72px;
+}
