@@ -11,6 +11,7 @@
   // which three appear, not how big the bar is. The homepage is the catalog;
   // this is a teaser. Do not turn it back into a catalog.
   var APPS = [
+    { host: 'switchboard.tn07.dev', name: 'Switchboard', cat: 'tools', blurb: 'Workspace around your coding agents', icon: 'switchboard.png' },
     { host: 'someday.tn07.dev',     name: 'Someday',     cat: 'tools', blurb: 'Things you said you would get around to' , icon: 'someday.png' },
     { host: 'follymarket.tn07.dev', name: 'Follymarket', cat: 'fun',   blurb: 'Play-money prediction market' , icon: 'follymarket.svg' },
     { host: 'watchwithmi.tn07.dev', name: 'WatchWithMi', cat: 'tools', blurb: 'Watch things together, in sync' , icon: 'watchwithmi.svg' },
