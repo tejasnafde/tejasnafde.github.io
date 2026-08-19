@@ -30,6 +30,16 @@ test('featured work uses the approved product order and destinations', () => {
   }
 });
 
+test('Someday and Scout use concrete, accurate descriptions', async () => {
+  const featured = between('const featuredWork = [', 'const projects = [');
+  const ring = await readFile(new URL('../public/ring.js', import.meta.url), 'utf8');
+
+  assert.match(featured, /name: 'Someday',[\s\S]*?blurb: 'Save the things you want to do together, then actually make them happen\.'/);
+  assert.match(featured, /name: 'Scout',[\s\S]*?blurb: 'Jobs scored against your profile, so the strongest matches rise first\.'/);
+  assert.doesNotMatch(featured, /shared memory for friendships|remote jobs/i);
+  assert.doesNotMatch(ring, /remote jobs/i);
+});
+
 test('fun sites render only in a later section', () => {
   const featured = between('const featuredWork = [', 'const funSites = [');
   for (const name of ['Follymarket', 'Board Games', 'Marvel Syllabus']) {

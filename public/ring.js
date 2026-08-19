@@ -17,7 +17,7 @@
     { host: 'watchwithmi.tn07.dev', name: 'WatchWithMi', cat: 'tools', blurb: 'Watch things together, in sync' , icon: 'watchwithmi.svg' },
     { host: 'gaming.tn07.dev',      name: 'Board Games', cat: 'fun',   blurb: 'Battleship, Connect 4, Labyrinth' , icon: 'gaming.svg' },
     { host: 'marvel.tn07.dev',      name: 'Marvel',      cat: 'fun',   blurb: 'A reading order for 65 years of comics' , icon: 'marvel.svg' },
-    { host: 'scout.tn07.dev',       name: 'Scout',       cat: 'tools', blurb: 'Remote jobs, scored against your profile' , icon: 'scout.svg' }
+    { host: 'scout.tn07.dev',       name: 'Scout',       cat: 'tools', blurb: 'Jobs scored against your profile' , icon: 'scout.svg' }
   ];
   // A not-yet-deployed app may carry soon: true. The bar skips it and the
   // "All N" count excludes it, because a dead hostname fails with an SSL
