@@ -12,10 +12,12 @@ test('shared layout provides a keyboard skip link', () => {
 });
 
 test('manual theme updates browser color metadata', () => {
-  assert.match(layout, /<meta name="theme-color" content="#F7F6F4" \/>/);
+  assert.match(layout, /<meta name="theme-color" content="" \/>/);
   assert.match(layout, /document\.documentElement\.style\.colorScheme = t;/);
-  assert.match(layout, /document\.querySelector\('meta\[name="theme-color"\]'\)\.content = t === 'dark' \? '#0A0A0C' : '#F7F6F4';/);
+  assert.match(layout, /getComputedStyle\(document\.documentElement\)\.getPropertyValue\('--bg'\)\.trim\(\)/);
+  assert.match(layout, /document\.querySelector\('meta\[name="theme-color"\]'\)\.content = bg;/);
   assert.match(layout, /document\.documentElement\.style\.colorScheme = next;/);
+  assert.match(layout, /syncThemeColor\(\);/);
 });
 
 test('site interactions and anchors support touch and fixed navigation', () => {

@@ -1,7 +1,9 @@
 # tn07 house style
 
 Every site under `tn07.dev` obeys this file. A new site starts by copying the
-two lines in "Start here" and nothing else.
+two lines in "Start here" and nothing else. Installed apps inherit this visual
+contract and add platform mechanics from
+[`APP_STYLE.md`](https://tn07.dev/design/APP_STYLE.md).
 
 Tokens: <https://tn07.dev/design/tokens.css>
 
@@ -24,7 +26,7 @@ Fonts, if you use the defaults:
 Sites here are different products, so they must not look identical. They must
 look **related**. The token file gives every site the same skeleton: the same
 surface ramp, the same ink ramp, the same spacing, the same motion, the same
-meaning for green and red. An app then overrides **five** variables to be
+meaning for green and red. A site then overrides **five** variables to be
 itself:
 
 ```css
@@ -38,7 +40,7 @@ itself:
 ```
 
 Override those five. Do not override the ink ramp, the surface ramp, the
-spacing scale or the motion tokens. That is the whole contract. If your app
+spacing scale or the motion tokens. That is the whole contract. If your site
 needs a sixth override, the token file is missing something: fix the token
 file, not your app.
 
@@ -71,6 +73,7 @@ Current identities. Both columns must pass 4.5:1 on their own `--bg`:
 | Switchboard (promo, todo) | `#006CE8` | `#58A6FF` | `6px` | DM Sans |
 | interview-taker | `#2563EB` | `#60A5FA` | `10px` | DM Sans |
 | scout web | `#0E7F73` | `#14B8A6` | `12px` | DM Sans |
+| Radix (app first, promo todo) | `#8A2C62` | `#F078B0` | `16px` | Instrument Sans |
 
 Two accents must never be reused. Add your row here in the same change that
 picks one. Handover briefs for the sites still to be redone live in
@@ -117,6 +120,8 @@ sitting in a grid does not float.
 ## Type
 
 Sizes come from `--text-xs` to `--text-3xl`. Between them there is nothing.
+Form controls use the dedicated `--text-input` token, which is `16px` so iOS
+browser engines do not zoom the page when a field receives focus.
 
 Headings get `--track-head` (tight). Body gets `--track-body`. Uppercase mono
 labels get `--track-label` (loose) or they turn into a smudge.
@@ -151,6 +156,37 @@ the browser lay out the page on every frame and the animation stutters.
 - An icon-only button carries an `aria-label`.
 - Color never carries meaning alone. Green plus the word, not green alone.
 
+## Mobile web and browser-engine apps
+
+This section applies to websites, PWAs, Electron renderers and WebViews. Native
+widget layers use `APP_STYLE.md`. A hybrid app follows each contract in the
+layer where it runs.
+
+- Opt into safe-area values with
+  `<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">`.
+  Extend backgrounds under system chrome, then inset interactive content with
+  `env(safe-area-inset-*)` and a spacing-token fallback.
+- A viewport-filling app shell starts at `min-height: 100svh` and may enhance
+  to `100dvh`. Do not make ordinary document pages viewport-height layouts.
+- Inputs, textareas and selects use `font-size: var(--text-input)`.
+- Hover presentation lives inside
+  `@media (hover: hover) and (pointer: fine)`. Focus and pressed states remain
+  available on every input modality.
+- Do not disable `-webkit-tap-highlight-color` globally. Remove it only from a
+  real button or link that already has equally clear pressed feedback.
+- Do not apply `touch-action` globally. `manipulation` is for compact controls
+  with no reading content. `pan-y` is for custom horizontal gesture surfaces
+  that preserve vertical page scrolling.
+- `overscroll-behavior: none` is for an immersive app shell whose own gesture
+  conflicts with browser pull-to-refresh. It is not a promo-site default.
+- `user-select: none` is for control labels and drag handles, never body copy.
+- When a user-selected theme can differ from the OS theme, update
+  `<meta name="theme-color">` from the resolved `--bg` token. A media-only meta
+  pair will show the wrong browser chrome for an explicit override.
+
+Rules that depend on mobile-browser behavior must carry a dated real-device
+verification note in the task handover. "Tested responsively" is not evidence.
+
 ## The ring
 
 `ring.js` puts a small bar at the bottom of the page that links the other
@@ -166,5 +202,5 @@ To add an app to the ring, edit `APPS` at the top of `public/ring.js` in
 
 ## When you disagree with this file
 
-Change this file. Do not add a local exception. Two style guides is worse than
-a style guide you dislike.
+Change this file. Do not add a local exception. `APP_STYLE.md` is a derivative
+platform contract, not a parallel visual guide.

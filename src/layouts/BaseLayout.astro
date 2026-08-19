@@ -2,17 +2,37 @@
 interface Props {
   title: string;
   description?: string;
+  personSchema?: boolean;
 }
 
-const { title, description = 'Tejas Nafde - Software Engineer' } = Astro.props;
+const {
+  title,
+  description = 'Tejas Nafde is a software engineer in Bengaluru building backend systems, real-time infrastructure, and developer tools.',
+  personSchema = false,
+} = Astro.props;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Tejas Nafde',
+  url: 'https://tn07.dev/',
+  jobTitle: 'Software Engineer',
+  homeLocation: {
+    '@type': 'Place',
+    name: 'Bengaluru, India',
+  },
+  sameAs: [
+    'https://github.com/tejasnafde',
+    'https://www.linkedin.com/in/tejas-nafde/',
+  ],
+};
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Tejas Nafde" />
@@ -20,10 +40,13 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta name="twitter:card" content="summary" />
-    <meta name="theme-color" content="#F7F6F4" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {personSchema && (
+      <script type="application/ld+json" set:html={JSON.stringify(person)} />
+    )}
+    <meta name="theme-color" content="" />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM summary" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <script is:inline>
       // Set the theme before first paint or the page flashes. Explicit value
       // always, so the tokens.css media-query fallback never has to guess.
@@ -35,10 +58,16 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
         }
         document.documentElement.dataset.theme = t;
         document.documentElement.style.colorScheme = t;
-        document.querySelector('meta[name="theme-color"]').content = t === 'dark' ? '#0A0A0C' : '#F7F6F4';
       })();
     </script>
     <link rel="stylesheet" href="/design/tokens.css" />
+    <script is:inline>
+      function syncThemeColor() {
+        var bg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+        if (bg) document.querySelector('meta[name="theme-color"]').content = bg;
+      }
+      syncThemeColor();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -93,7 +122,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
         var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
         document.documentElement.dataset.theme = next;
         document.documentElement.style.colorScheme = next;
-        document.querySelector('meta[name="theme-color"]').content = next === 'dark' ? '#0A0A0C' : '#F7F6F4';
+        syncThemeColor();
         try { localStorage.setItem('theme', next); } catch (e) {}
       });
     </script>

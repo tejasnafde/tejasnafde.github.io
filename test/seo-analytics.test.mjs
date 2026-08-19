@@ -19,6 +19,23 @@ test("the layout publishes canonical social metadata and anonymous analytics", a
   assert.doesNotMatch(analytics, /cookie|localStorage|sessionStorage|referrer/i);
 });
 
+test("the portfolio identifies Tejas Nafde as the person behind the site", async () => {
+  const [layout, homepage] = await Promise.all([
+    source("src/layouts/BaseLayout.astro"),
+    source("src/pages/index.astro"),
+  ]);
+
+  assert.match(
+    layout,
+    /Tejas Nafde is a software engineer in Bengaluru building backend systems, real-time infrastructure, and developer tools\./,
+  );
+  assert.match(layout, /['"]@type['"]:\s*['"]Person['"]/);
+  assert.match(layout, /name:\s*['"]Tejas Nafde['"]/);
+  assert.match(layout, /https:\/\/github\.com\/tejasnafde/);
+  assert.match(layout, /https:\/\/www\.linkedin\.com\/in\/tejas-nafde\//);
+  assert.match(homepage, /personSchema/);
+});
+
 test("the apex publishes crawler and agent discovery files", async () => {
   const [robots, llms] = await Promise.all([
     source("public/robots.txt"),

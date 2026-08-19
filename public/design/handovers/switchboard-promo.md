@@ -43,7 +43,8 @@ will fight over the record. That warning is already written in the toml.
 
 ```css
 :root {
-  --accent: #58A6FF;   /* the app's own accent, from its global.css */
+  --accent-light: #006CE8;
+  --accent-dark: #58A6FF; /* the app's own dark accent */
   --r: 6px;            /* matches the app's --radius */
   --font-body: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -102,7 +103,7 @@ CHANGELOG or source, leave it out.
 
 - `/apk` behaves exactly as before. Test it explicitly and show the 302 target.
 - The promo site serves at `/` on the same hostname.
-- Tokens imported, four overrides, row added to the `STYLE.md` table.
+- Tokens imported, five overrides, row added to the `STYLE.md` table.
 - `<script src="https://tn07.dev/ring.js" defer></script>` before `</body>`,
   and a `switchboard` entry added to `APPS` in
   `tejasnafde.github.io/public/ring.js` with `cat: 'tools'`.

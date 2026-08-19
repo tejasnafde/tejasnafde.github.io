@@ -14,14 +14,15 @@ Do not change any other repo. Do not deploy. Report back when the diff is ready.
 
 ```css
 :root {
-  --accent: #FF7A5C;   /* warm, reads as a projector in a dark room */
+  --accent-light: #DB2800;
+  --accent-dark: #FF7A5C; /* warm, reads as a projector in a dark room */
   --r: 14px;
   --font-body: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
 ```
 
-Override those four and nothing else. If you think a fifth override is needed,
+Override those five and nothing else. If you think a sixth override is needed,
 the token file is missing something: say so and stop, do not add a local
 exception.
 
@@ -57,7 +58,7 @@ The frontend is Next.js 15.3.4 + React 19 + Tailwind v4 + shadcn/ui
 
 Files to work in:
 `frontend/src/app/globals.css`, `frontend/src/styles/theme-brutalist.css`
-(delete it or reduce it to the four overrides), `frontend/src/app/layout.tsx`,
+(delete it or reduce it to the five overrides), `frontend/src/app/layout.tsx`,
 `components.json`.
 
 ## What the sites that work do right
@@ -84,7 +85,7 @@ your work, but do not touch the Cloud Run flags.
 
 ## Definition of done
 
-- `tokens.css` imported, four overrides set, no other token redefined.
+- `tokens.css` imported, five overrides set, no other token redefined.
 - No `!important`, no universal-selector resets.
 - Light and dark both usable, no flash on load.
 - `<script src="https://tn07.dev/ring.js" defer></script>` before `</body>`.

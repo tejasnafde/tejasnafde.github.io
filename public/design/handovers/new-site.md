@@ -24,17 +24,22 @@ CATEGORY:    play | tools | read
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=JetBrains+Mono:wght@400;600&display=swap">
 ```
 
-Then pick your identity: one accent, one card radius, a body font and a mono
-font. Four overrides, nothing else. Choose an accent that no existing site uses:
+Then pick your identity: one accent pair, one card radius, a body font and a
+mono font. Five overrides, nothing else. Choose an accent that no existing site
+uses:
 
-| Taken | By |
-|---|---|
-| `#5B4B8A` | Someday |
-| `#A78BFA` | Follymarket |
-| `#FF5A1F` | Marvel |
-| `#C9A84C` | tn07 home |
-| `#FF7A5C` | WatchWithMi |
-| `#5B8DEF` | Board Game Sim |
+| Light accent | Dark accent | By |
+|---|---|---|
+| `#5B4B8A` | `#9A8ACB` | Someday |
+| `#7A50F7` | `#A78BFA` | Follymarket |
+| `#D33700` | `#FF5A1F` | Marvel |
+| `#856A1D` | `#C9A84C` | tn07 home |
+| `#DB2800` | `#FF7A5C` | WatchWithMi |
+| `#2869EA` | `#5B8DEF` | Board Game Sim |
+| `#006CE8` | `#58A6FF` | Switchboard |
+| `#2563EB` | `#60A5FA` | interview-taker |
+| `#0E7F73` | `#14B8A6` | scout |
+| `#8A2C62` | `#F078B0` | Radix |
 
 Add your entry to the table in `STYLE.md` in the same change.
 
@@ -113,7 +118,7 @@ it **UNDOCUMENTED**.
 
 ## Definition of done
 
-- Tokens imported, exactly four overrides, entry added to the `STYLE.md` table.
+- Tokens imported, exactly five overrides, entry added to the `STYLE.md` table.
 - Ring script present, and an `APPS` entry added in the home repo.
 - Light and dark both usable, no flash on load.
 - Hostname live over HTTPS, and `./dns.sh docs --check` passes.
