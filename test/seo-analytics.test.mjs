@@ -13,6 +13,7 @@ test("the layout publishes canonical social metadata and anonymous analytics", a
   assert.match(layout, /property="og:url"/);
   assert.match(layout, /name="twitter:card" content="summary"/);
   assert.match(layout, /src="\/analytics\.js"/);
+  assert.match(layout, /9db30c7f692044efb0df61682623a929/);
   assert.match(analytics, /acquisition_landing/);
   assert.match(analytics, /project_open/);
   assert.doesNotMatch(analytics, /cookie|localStorage|sessionStorage|referrer/i);

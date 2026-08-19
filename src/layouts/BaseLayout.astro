@@ -46,6 +46,11 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
       rel="stylesheet"
     />
     <title>{title}</title>
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token":"9db30c7f692044efb0df61682623a929"}'
+    ></script>
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
