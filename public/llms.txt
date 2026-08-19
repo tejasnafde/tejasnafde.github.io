@@ -1,0 +1,8 @@
+# Tejas Nafde
+
+> Software engineer building useful products, developer tools, and reliable systems.
+
+## Canonical resources
+
+- [Homepage](https://tn07.dev/)
+- [GitHub](https://github.com/tejasnafde)

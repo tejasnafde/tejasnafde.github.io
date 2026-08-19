@@ -5,6 +5,7 @@ interface Props {
 }
 
 const { title, description = 'Tejas Nafde - Software Engineer' } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
 ---
 
 <!doctype html>
@@ -13,8 +14,16 @@ const { title, description = 'Tejas Nafde - Software Engineer' } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Tejas Nafde" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta name="twitter:card" content="summary" />
     <meta name="theme-color" content="#F7F6F4" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM summary" />
     <script is:inline>
       // Set the theme before first paint or the page flashes. Explicit value
       // always, so the tokens.css media-query fallback never has to guess.
@@ -84,6 +93,7 @@ const { title, description = 'Tejas Nafde - Software Engineer' } = Astro.props;
       });
     </script>
     <script src="/ring.js" defer></script>
+    <script type="module" src="/analytics.js"></script>
   </body>
 </html>
 
