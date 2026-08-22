@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
@@ -11,12 +12,37 @@ test("the layout publishes canonical social metadata and anonymous analytics", a
   assert.match(layout, /rel="canonical"/);
   assert.match(layout, /property="og:title"/);
   assert.match(layout, /property="og:url"/);
-  assert.match(layout, /name="twitter:card" content="summary"/);
+  assert.match(layout, /name="twitter:card" content="summary_large_image"/);
   assert.match(layout, /src="\/analytics\.js"/);
   assert.match(layout, /9db30c7f692044efb0df61682623a929/);
   assert.match(analytics, /acquisition_landing/);
   assert.match(analytics, /project_open/);
   assert.doesNotMatch(analytics, /cookie|localStorage|sessionStorage|referrer/i);
+});
+
+test("the layout publishes a large social preview", async () => {
+  const layout = await source("src/layouts/BaseLayout.astro");
+
+  assert.match(layout, /name="twitter:card" content="summary_large_image"/);
+  assert.match(layout, /property="og:image" content=\{socialImageUrl\}/);
+  assert.match(layout, /property="og:image:width" content="1200"/);
+  assert.match(layout, /property="og:image:height" content="630"/);
+  assert.match(layout, /property="og:image:type" content="image\/png"/);
+  assert.match(layout, /property="og:image:alt" content=\{socialImageAlt\}/);
+  assert.match(layout, /name="twitter:title" content=\{title\}/);
+  assert.match(layout, /name="twitter:description" content=\{description\}/);
+  assert.match(layout, /name="twitter:image" content=\{socialImageUrl\}/);
+  assert.match(layout, /name="twitter:image:alt" content=\{socialImageAlt\}/);
+});
+
+test("the social preview PNG is exactly 1200 by 630 pixels", async () => {
+  const imageUrl = new URL("public/og-image.png", root);
+  assert.equal(existsSync(imageUrl), true, "public/og-image.png must exist");
+
+  const image = await readFile(imageUrl);
+  assert.equal(image.subarray(1, 4).toString("ascii"), "PNG");
+  assert.equal(image.readUInt32BE(16), 1200);
+  assert.equal(image.readUInt32BE(20), 630);
 });
 
 test("the portfolio identifies Tejas Nafde as the person behind the site", async () => {
