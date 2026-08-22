@@ -1,4 +1,4 @@
-/* tn07.dev site styles. The skeleton comes from /design/tokens.css, linked in
+/* tn07.dev site styles. The skeleton comes from /design/tokens.css, inlined in
    BaseLayout BEFORE this file. This file holds the five per-app identity
    overrides plus site chrome. Do not restate the ink/surface/spacing ramps. */
 
@@ -10,8 +10,8 @@
   --accent-light: #856A1D;   /* 4.77:1 on light --bg */
   --accent-dark: #C9A84C;    /* 8.66:1 on dark --bg */
   --r: 8px;
-  --font-body: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-body: 'DM Sans Variable', 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --max-width: 1080px;
 }

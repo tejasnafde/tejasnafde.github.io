@@ -26,8 +26,8 @@
   --accent-light: #876E29;   /* must pass 4.5:1 on light --bg #F7F6F4 */
   --accent-dark: #C9A84C;    /* must pass 4.5:1 on dark  --bg #0A0A0C */
   --r: 12px;                 /* cards */
-  --font-body: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-body: 'DM Sans Variable', 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* ---- everything below is shared ---- */
   --font-serif: 'Lora', Georgia, serif;

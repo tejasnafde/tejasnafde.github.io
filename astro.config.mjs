@@ -9,4 +9,7 @@ export default defineConfig({
   site: 'https://tn07.dev',
   output: 'static',
   integrations: [sitemap()],
+  build: {
+    inlineStylesheets: 'always',
+  },
 });
