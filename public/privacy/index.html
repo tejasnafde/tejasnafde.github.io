@@ -28,18 +28,38 @@
 <body>
 <main>
   <h1>Privacy</h1>
-  <p class="updated">Last updated 2026-07-27</p>
+  <p class="updated">Last updated 2026-09-15</p>
 
   <p>
     <strong>tn07</strong> is the publisher name for a set of personal software projects,
     including <strong>Switchboard</strong>. They are built and maintained by one person.
-    There is no company, no analytics, and no advertising.
+    There is no company and no advertising. The Switchboard desktop app sends anonymous
+    usage counts, described below, and nothing else leaves your machines.
   </p>
 
   <h2>The short version</h2>
   <p>
-    These apps run on your own devices and talk to your own machines. No server operated
-    by tn07 receives your data, because there is no such server.
+    These apps run on your own devices and talk to your own machines. Your chats, code and
+    terminal output never reach a server operated by tn07. The one exception is a small set
+    of anonymous usage counts from the Switchboard desktop app, which you can turn off.
+  </p>
+
+  <h2>Anonymous usage counts (Switchboard desktop)</h2>
+  <p>
+    The desktop app reports five events: it launched, an agent session started, the feature
+    tour was completed or skipped, and a process crashed. Each report carries the event
+    name, the app version, the operating system (macOS or Windows), the chip (arm64 or x64),
+    and a random install id that is generated on your machine and is not linked to you, your
+    account, your hostname, or your files. A session report names only the agent kind
+    (Claude Code, Codex, or OpenCode). No message content, file path, project name, terminal
+    output, or error text is ever sent.
+  </p>
+  <p>
+    The counts go to <code>analytics.tn07.dev</code>, a Cloudflare Worker, and are kept as
+    aggregate rows in Cloudflare Analytics Engine, which retains them for three months. They
+    are used only to see how many installs exist and whether a release crashes. Turn them off
+    at any time in Settings &gt; General &gt; Privacy; the app stops sending immediately.
+    Development builds never send anything.
   </p>
 
   <h2>Google sign-in and the data it touches</h2>
@@ -70,7 +90,8 @@
 
   <h2>What is not collected</h2>
   <ul>
-    <li>No analytics, telemetry, crash reporting, or advertising identifiers.</li>
+    <li>No advertising identifiers, and no analytics beyond the anonymous usage counts
+      described above, which are off with one click.</li>
     <li>No contact list, location, photos, or microphone access.</li>
     <li>No chat content, source code, or terminal output leaves your machines. Those live on
       hardware you control, and the app connects to it directly.</li>
