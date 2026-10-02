@@ -38,6 +38,16 @@
     Each app is described below, because they collect different things.
   </p>
 
+  <nav aria-label="Products">
+    <p><strong>By product:</strong>
+      <a href="#switchboard">Switchboard</a> &middot;
+      <a href="#someday">Someday</a> &middot;
+      <a href="#scout">Scout</a> &middot;
+      <a href="#follymarket">Follymarket</a> &middot;
+      <a href="#watchwithmi">WatchWithMi</a> &middot;
+      <a href="#deletion">Deleting your data</a></p>
+  </nav>
+
   <h2>The short version</h2>
   <ul>
     <li><strong>Switchboard</strong> runs on your own machines. Your chats, code and terminal
@@ -50,7 +60,7 @@
       Drive, contacts or calendar.</li>
   </ul>
 
-  <h2>Switchboard</h2>
+  <h2 id="switchboard">Switchboard</h2>
   <p>
     The desktop app reports five anonymous events: it launched, an agent session started,
     the feature tour was completed or skipped, and a process crashed. Each report carries the
@@ -80,7 +90,7 @@
     Android Keystore). They are sent only to Google, and never to a server operated by tn07.
   </p>
 
-  <h2>Someday</h2>
+  <h2 id="someday">Someday</h2>
   <p>
     Someday stores your account (email, display name, profile picture), the circles you
     create or join, and what you save in them: links, titles, notes, tags, reactions, and the
@@ -90,7 +100,7 @@
     Expo's push service and the browser's web push service.
   </p>
 
-  <h2>Scout</h2>
+  <h2 id="scout">Scout</h2>
   <p>
     Scout stores your account, your job preferences, the jobs it finds for you, and the resume
     and voice notes you upload. Account data and jobs are stored in Google Cloud Firestore;
@@ -102,7 +112,7 @@
     hand.
   </p>
 
-  <h2>Follymarket</h2>
+  <h2 id="follymarket">Follymarket</h2>
   <p>
     Follymarket is an invite-only play-money prediction market. It stores your account, the
     markets you create, your positions and your play-money ledger in Google Cloud Firestore.
@@ -111,7 +121,7 @@
     subscription is stored.
   </p>
 
-  <h2>WatchWithMi and the smaller tools</h2>
+  <h2 id="watchwithmi">WatchWithMi and the smaller tools</h2>
   <p>
     WatchWithMi has no accounts. A room exists only in memory while people are in it, and it
     keeps only the display name you type. Searches use the YouTube Data API. Other tools on
@@ -119,7 +129,7 @@
     company Google accounts.
   </p>
 
-  <h2>Usage counts and page views</h2>
+  <h2 id="analytics">Usage counts and page views</h2>
   <p>
     The hosted apps and websites send anonymous event counts (for example, "an item was
     saved") to <code>analytics.tn07.dev</code>, a Cloudflare Worker, and Cloudflare Analytics
@@ -137,7 +147,7 @@
       scope described above.</li>
   </ul>
 
-  <h2>Deleting your data</h2>
+  <h2 id="deletion">Deleting your data</h2>
   <p>
     Email <a href="mailto:nafdetejas@gmail.com">nafdetejas@gmail.com</a> from the address
     you signed in with, name the app, and your account and content in it are deleted within
@@ -146,7 +156,7 @@
     Signing out of an app deletes its tokens from your device.
   </p>
 
-  <h2>Third parties</h2>
+  <h2 id="third-parties">Third parties</h2>
   <p>
     Data is processed by the services that run these apps, each under its own privacy policy:
     Google Cloud (sign-in, Firestore, Cloud Storage, Cloud Run, Vertex AI and IAP), Supabase
