@@ -99,6 +99,12 @@
     notifications, a push token is stored so that the app can notify you; pushes go through
     Expo's push service and the browser's web push service.
   </p>
+  <p>
+    If you allow it, a Meanwhile post uses your device location to show your city to your
+    circle. The coordinates are sent once to OpenStreetMap's Nominatim service to find the
+    city name, and only the city is stored. The coordinates themselves are not kept. Deny the
+    location permission and posts show no city.
+  </p>
 
   <h2 id="scout">Scout</h2>
   <p>
@@ -142,7 +148,7 @@
   <h2>What is not collected</h2>
   <ul>
     <li>No advertising identifiers, and no tracking across other sites.</li>
-    <li>No contact list or location.</li>
+    <li>No contact list, and no location other than the city described for Someday.</li>
     <li>No access to any Google data beyond your basic profile, except the Switchboard tunnel
       scope described above.</li>
   </ul>
@@ -168,7 +174,7 @@
     Data is processed by the services that run these apps, each under its own privacy policy:
     Google Cloud (sign-in, Firestore, Cloud Storage, Cloud Run, Vertex AI and IAP), Supabase
     (sign-in and database), Cloudflare (hosting and analytics), Vercel (hosting), Expo (push
-    notifications) and Discord (the private developer channels described above). Nothing is
+    notifications), OpenStreetMap Nominatim (city lookup for Someday) and Discord (the private developer channels described above). Nothing is
     shared with anyone else, and nothing is sold. Source for most projects is on
     <a href="https://github.com/tejasnafde">GitHub</a>.
   </p>
