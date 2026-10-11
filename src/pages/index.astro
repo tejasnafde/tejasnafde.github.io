@@ -63,6 +63,7 @@ const featuredWork = [
     host: 'scout.tn07.dev',
     icon: '/icons/scout.svg',
     blurb: 'Jobs scored against your profile, so the strongest matches rise first.',
+    play: 'https://play.google.com/store/apps/details?id=app.tn07.scout',
   },
   {
     name: 'WatchWithMi',
@@ -183,6 +184,7 @@ const stack = [
         </div>
         <div class="featured-list">
           {featuredWork.map((p, i) => (
+            <div class="featured-item">
             <a href={`https://${p.host}`} class="featured-row">
               <span class="featured-index label num">{String(i + 1).padStart(2, '0')}</span>
               <img class="featured-icon" src={p.icon} alt="" width="40" height="40" loading={i === 0 ? 'eager' : 'lazy'} />
@@ -193,6 +195,12 @@ const stack = [
               <span class="featured-host">{p.host}</span>
               <span class="featured-chev" aria-hidden="true">&rsaquo;</span>
             </a>
+            {p.play && (
+              <a href={p.play} target="_blank" rel="noopener" class="featured-store">
+                <img src="/badges/google-play.png" alt={`Get ${p.name} on Google Play`} width="129" height="50" loading="lazy" />
+              </a>
+            )}
+            </div>
           ))}
         </div>
       </div>
@@ -471,9 +479,27 @@ const stack = [
     gap: var(--sp-4);
     align-items: center;
     padding: var(--sp-5) var(--sp-2);
-    border-bottom: 1px solid var(--line);
     color: inherit;
     transition: background var(--dur-1) var(--ease);
+  }
+
+  .featured-item {
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* A store badge sits under its row, lined up with the name. It cannot go inside
+     the row, which is itself a link. The badge PNG carries its own clear space,
+     hence the -6px. */
+  .featured-store {
+    display: block;
+    width: max-content;
+    line-height: 0;
+    margin: calc(-1 * var(--sp-4)) 0 var(--sp-3) calc(36px + 40px + 2 * var(--sp-4) + var(--sp-2) - 6px);
+  }
+
+  .featured-store img {
+    height: 50px;
+    width: auto;
   }
 
   .featured-row:hover,
@@ -988,6 +1014,10 @@ const stack = [
     .featured-icon {
       width: 36px;
       height: 36px;
+    }
+
+    .featured-store {
+      margin-left: calc(28px + 36px + 2 * var(--sp-3) + var(--sp-1) - 6px);
     }
 
     .featured-host,
