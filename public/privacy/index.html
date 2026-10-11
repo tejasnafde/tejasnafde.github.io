@@ -140,7 +140,8 @@
     The hosted apps and websites send anonymous event counts (for example, "an item was
     saved") to <code>analytics.tn07.dev</code>, a Cloudflare Worker, and Cloudflare Analytics
     Engine keeps them for three months. They name the app, the event and the platform, never
-    the content. The websites also use Cloudflare Web Analytics, which counts page views
+    the content. On the tn07.dev home page they also record the kind of site a visitor
+    came from (for example LinkedIn or a search engine), not the page address. The websites also use Cloudflare Web Analytics, which counts page views
     without cookies. Both are used only to see whether people use a feature and whether a
     release breaks.
   </p>
