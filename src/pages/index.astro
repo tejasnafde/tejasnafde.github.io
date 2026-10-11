@@ -486,6 +486,12 @@ const stack = [
 
   .featured-item {
     border-bottom: 1px solid var(--line);
+    transition: background var(--dur-1) var(--ease);
+  }
+
+  /* Hover lights the whole item, so a store badge under a row is inside the band. */
+  .featured-item:hover {
+    background: var(--surface);
   }
 
   /* A store badge sits under its row, lined up with the name. It cannot go inside
@@ -503,9 +509,12 @@ const stack = [
     width: auto;
   }
 
-  .featured-row:hover,
   .fun-row:hover {
     background: var(--surface);
+    text-decoration: none;
+  }
+
+  .featured-row:hover {
     text-decoration: none;
   }
 
@@ -526,7 +535,7 @@ const stack = [
     letter-spacing: var(--track-head);
   }
 
-  .featured-row:hover .featured-name,
+  .featured-item:hover .featured-name,
   .fun-row:hover .fun-name {
     color: var(--accent);
   }
@@ -566,7 +575,7 @@ const stack = [
     transition: transform var(--dur-1) var(--ease), color var(--dur-1) var(--ease);
   }
 
-  .featured-row:hover .featured-chev,
+  .featured-item:hover .featured-chev,
   .fun-row:hover .fun-chev {
     color: var(--accent);
     transform: translateX(3px);
