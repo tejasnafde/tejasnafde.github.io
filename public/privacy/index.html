@@ -28,7 +28,7 @@
 <body>
 <main>
   <h1>Privacy</h1>
-  <p class="updated">Last updated 2026-10-03</p>
+  <p class="updated">Last updated 2026-10-15</p>
 
   <p>
     <strong>tn07</strong> is the publisher name for a set of personal software projects:
@@ -51,7 +51,8 @@
   <h2>The short version</h2>
   <ul>
     <li><strong>Switchboard</strong> runs on your own machines. Your chats, code and terminal
-      output never reach a server operated by tn07.</li>
+      output never reach a server operated by tn07. Only short notification text passes
+      through push services, as described below.</li>
     <li><strong>Someday, Scout and Follymarket</strong> are hosted apps. They store your
       account (name, email, profile picture) and the content you add, so that the app works
       across devices and with the people you share it with.</li>
@@ -62,18 +63,47 @@
 
   <h2 id="switchboard">Switchboard</h2>
   <p>
-    The desktop app reports five anonymous events: it launched, an agent session started,
+    <strong>The desktop app</strong> reports five anonymous events: it launched, an agent session started,
     the feature tour was completed or skipped, and a process crashed. Each report carries the
     event name, the app version, the operating system (macOS or Windows), the chip (arm64 or
-    x64), and a random install id that is generated on your machine and is not linked to you,
+    x64), whether a Mac runs it under Rosetta, and a random install id that is generated on your machine and is not linked to you,
     your account, your hostname, or your files. A session report names only the agent kind
-    (Claude Code, Codex, or OpenCode). No message content, file path, project name, terminal
+    (Claude Code, Codex, or OpenCode), and a crash report names only the kind of crash. No message content, file path, project name, terminal
     output, or error text is ever sent. Turn the reports off at any time in Settings &gt;
     General &gt; Privacy; the app stops sending immediately. Development builds never send
     anything.
   </p>
   <p>
-    The Switchboard mobile app can sign in with Google. When it does, it requests these
+    <strong>The phone app</strong> ("Switchboard: Run Your Agents", for iPhone and Android)
+    is a remote control for Switchboard running on your own computer, which we call your
+    backend. Your chats, prompts, photos and voice recordings travel only between the phone
+    and your backend. tn07 does not run a server in that path and never sees them. The app
+    has no ads, no advertising identifier, no analytics and no crash reporting.
+  </p>
+  <ul>
+    <li><strong>Camera</strong> - used only to scan the pairing QR code that the desktop app
+      shows. The code is read on the phone, and no picture is taken or kept. The phone keeps
+      the backend address and pairing key from the code so that it can reconnect.</li>
+    <li><strong>Microphone and speech recognition</strong> - used only while you dictate a
+      message. On iPhone, speech is turned into text on the phone when the phone supports it
+      for your language; otherwise Apple's speech recognition service processes it. On
+      Android, the phone's own speech recognizer does it, which is usually Google's and may
+      send the audio to Google. On iPhone, the recording is also sent to your own backend,
+      which can correct the text with a local speech model.</li>
+    <li><strong>Photos</strong> - only the photos and screenshots you choose to attach are
+      read, and they are sent only to your own backend, as part of your message.</li>
+    <li><strong>Notifications</strong> - if you allow them, the phone gets a push token from
+      Apple or from Firebase Cloud Messaging, exchanges it for an Expo push token, and gives
+      that token to your backend. When an agent needs you, your backend sends a notification
+      through Expo's push service and then Apple's or Google's. It carries a short excerpt: the
+      chat title, the project folder, and one line such as an agent's question, an error, or
+      what an approval would do. That excerpt is the only chat content that leaves your own
+      devices.</li>
+    <li><strong>Demo mode</strong> uses sample data stored in the app. It connects to nothing,
+      and it does not ask for the microphone or for notifications.</li>
+  </ul>
+  <p>
+    The Switchboard phone app can also sign in with Google. When it does, it requests these
     OAuth scopes:
   </p>
   <ul>
@@ -149,6 +179,7 @@
   <h2>What is not collected</h2>
   <ul>
     <li>No advertising identifiers, and no tracking across other sites.</li>
+    <li>No analytics of any kind from the Switchboard phone app.</li>
     <li>No contact list, and no location other than the city described for Someday.</li>
     <li>No access to any Google data beyond your basic profile, except the Switchboard tunnel
       scope described above.</li>
@@ -170,6 +201,13 @@
     in Someday or by email.
   </p>
   <p>
+    <strong>Switchboard</strong> keeps your chats on your own computer, so tn07 holds nothing to
+    delete. On the phone, remove a paired machine to delete its address and keys, or uninstall
+    the app to delete everything it stored, including its Google tokens. After you uninstall,
+    the push token stops working, and your backend drops it the next time it tries to send.
+    On the desktop, uninstalling the app and deleting its data folder removes the rest.
+  </p>
+  <p>
     For any other app, email <a href="mailto:nafdetejas@gmail.com">nafdetejas@gmail.com</a>
     from the address you signed in with and name the app. Your account and the content in it
     are deleted within 30 days. To remove an app's Google access, visit
@@ -182,7 +220,8 @@
     Data is processed by the services that run these apps, each under its own privacy policy:
     Google Cloud (sign-in, Firestore, Cloud Storage, Cloud Run, Vertex AI and IAP), Supabase
     (sign-in and database), Cloudflare (hosting and analytics), Vercel (hosting), Expo (push
-    notifications), OpenStreetMap Nominatim (city lookup for Someday) and Discord (the private developer channels described above). Nothing is
+    notifications), Apple Push Notification service and Firebase Cloud Messaging (push
+    delivery), Apple and Google speech recognition (Switchboard dictation), OpenStreetMap Nominatim (city lookup for Someday) and Discord (the private developer channels described above). Nothing is
     shared with anyone else, and nothing is sold. Source for most projects is on
     <a href="https://github.com/tejasnafde">GitHub</a>.
   </p>
