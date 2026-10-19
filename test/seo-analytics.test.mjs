@@ -17,7 +17,9 @@ test("the layout publishes canonical social metadata and anonymous analytics", a
   assert.match(layout, /9db30c7f692044efb0df61682623a929/);
   assert.match(analytics, /acquisition_landing/);
   assert.match(analytics, /project_open/);
-  assert.doesNotMatch(analytics, /cookie|localStorage|sessionStorage|referrer/i);
+  assert.doesNotMatch(analytics, /cookie|localStorage|sessionStorage/i);
+  // The referrer is reduced to a coarse source bucket; the URL itself is never sent.
+  assert.doesNotMatch(analytics, /referrer\s*:/i);
 });
 
 test("the layout publishes a large social preview", async () => {
@@ -72,4 +74,25 @@ test("the apex publishes crawler and agent discovery files", async () => {
   assert.match(robots, /Sitemap: https:\/\/tn07\.dev\/sitemap-index\.xml/);
   assert.match(llms, /^# Tejas Nafde$/m);
   assert.match(llms, /https:\/\/tn07\.dev\//);
+});
+
+test("blog pages report the slug, a source bucket, reading time and scroll depth", async () => {
+  const { blogSlug, scrollPercent, engagedSeconds, landingSource } = await import("../public/analytics.js");
+
+  assert.equal(blogSlug("/blog/fastapi-twelve-dollar-server"), "fastapi-twelve-dollar-server");
+  assert.equal(blogSlug("/blog/fastapi-twelve-dollar-server/"), "fastapi-twelve-dollar-server");
+  assert.equal(blogSlug("/blog/"), null);
+  assert.equal(blogSlug("/blog/Bad_Slug"), null);
+  assert.equal(blogSlug("/"), null);
+
+  assert.equal(scrollPercent(0, 1000, 200, 4000), 20);
+  assert.equal(scrollPercent(5000, 1000, 200, 4000), 100);
+  assert.equal(scrollPercent(0, 100, 500, 4000), 0);
+
+  assert.equal(engagedSeconds(-5), 0);
+  assert.equal(engagedSeconds(42_400), 42);
+  assert.equal(engagedSeconds(10_000_000), 1800);
+
+  assert.equal(landingSource("", "?ref=linkedin"), "linkedin");
+  assert.equal(landingSource("https://www.linkedin.com/", ""), "linkedin");
 });
