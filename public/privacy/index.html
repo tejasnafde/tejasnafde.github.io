@@ -28,7 +28,7 @@
 <body>
 <main>
   <h1>Privacy</h1>
-  <p class="updated">Last updated 2026-10-15</p>
+  <p class="updated">Last updated 2026-10-20</p>
 
   <p>
     <strong>tn07</strong> is the publisher name for a set of personal software projects:
@@ -44,6 +44,7 @@
       <a href="#someday">Someday</a> &middot;
       <a href="#scout">Scout</a> &middot;
       <a href="#follymarket">Follymarket</a> &middot;
+      <a href="#radix">Radix</a> &middot;
       <a href="#watchwithmi">WatchWithMi</a> &middot;
       <a href="#deletion">Deleting your data</a></p>
   </nav>
@@ -53,6 +54,10 @@
     <li><strong>Switchboard</strong> runs on your own machines. Your chats, code and terminal
       output never reach a server operated by tn07. Only short notification text passes
       through push services, as described below.</li>
+    <li><strong>Radix</strong> records your voice only while you hold the talk button, and
+      sends it to Google's Gemini models to run the conversation. It keeps the recordings,
+      the transcripts and what you are learning, so it can bring your words and mistakes
+      back next time. You can delete all of it in the app.</li>
     <li><strong>Someday, Scout and Follymarket</strong> are hosted apps. They store your
       account (name, email, profile picture) and the content you add, so that the app works
       across devices and with the people you share it with.</li>
@@ -157,6 +162,27 @@
     subscription is stored.
   </p>
 
+  <h2 id="radix">Radix</h2>
+  <p>
+    Radix is a voice tutor for learning a language by speaking it. You sign in with Google.
+    Radix stores your email address, the date you first signed in, and how many minutes you
+    talked each day, so it can apply the free trial and daily limits.
+  </p>
+  <p>
+    The microphone is on only while you hold the talk button. What you say in that time is
+    streamed to Google's Gemini models on Vertex AI, which hear it and answer. Radix stores a
+    recording of your turns, the transcript of each conversation, and what it learns from
+    them: the words you have practised, when each one comes back, and the mistakes you made
+    with their corrections. After each conversation, the recording and transcript are sent to
+    Gemini once more to find those mistakes. All of this is stored in a private Google Cloud
+    Storage bucket, under your account only, until you delete it.
+  </p>
+  <p>
+    Google states that it does not use this data to train its models. Gemini may keep a
+    request in a cache for up to 24 hours, and Google may log requests for abuse monitoring,
+    under the Google Cloud terms. tn07 cannot delete data held by Google in those ways.
+  </p>
+
   <h2 id="watchwithmi">WatchWithMi and the smaller tools</h2>
   <p>
     WatchWithMi has no accounts. A room exists only in memory while people are in it, and it
@@ -201,6 +227,13 @@
     and invite codes. Job postings stay, because they are public listings shared by every user.
     Scout signs in through the same login as Someday, so that sign-in stays until you delete it
     in Someday or by email.
+  </p>
+  <p>
+    <strong>Radix</strong> can delete your data itself, in Settings, with Delete my Radix
+    data. This removes your recordings, transcripts, progress and mistakes at once. It keeps
+    only the date you first signed in and today's minute count, so that deleting does not
+    restart the free trial. It does not delete your Google account, and it does not affect
+    other tn07 apps that use the same Google sign-in.
   </p>
   <p>
     <strong>Switchboard</strong> keeps your chats on your own computer, so tn07 holds nothing to
