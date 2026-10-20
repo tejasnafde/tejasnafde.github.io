@@ -1,0 +1,11 @@
+<!-- raves.tn07.dev serves no favicon, so this is a stand-in: the site's
+     sweet-spot box and scatter dots in its accent #D4FF3A. If the site ever
+     ships a real favicon, replace this file with it. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="6" fill="#0D0D0D"/>
+  <rect x="14" y="6" width="12" height="13" rx="2.5" fill="none" stroke="#D4FF3A" stroke-width="1.4" stroke-dasharray="2.4 1.8"/>
+  <circle cx="20" cy="11" r="2.2" fill="#D4FF3A"/>
+  <circle cx="10" cy="15" r="2" fill="#C3C2B7"/>
+  <circle cx="22" cy="23" r="2" fill="#C3C2B7"/>
+  <circle cx="8" cy="24" r="2" fill="#C3C2B7"/>
+</svg>
