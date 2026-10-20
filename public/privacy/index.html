@@ -145,9 +145,15 @@
   <p>
     Scout stores your account, your job preferences, the jobs it finds for you, and the resume
     and voice notes you upload. Account data and jobs are stored in Google Cloud Firestore;
-    resumes and voice notes are stored in a private Google Cloud Storage bucket. To score jobs
-    and tailor resumes, Scout sends your preferences, your resume text and job descriptions to
-    Google's Gemini models on Vertex AI. When you first set up Scout, your name, email, the
+    resumes and voice notes are stored in a private Google Cloud Storage bucket. Scout uses
+    Google's Gemini models on Google Cloud Vertex AI, a third-party AI service, to score jobs and
+    to draft resumes, cover letters, answers and outreach messages. For this it sends Gemini your
+    resume text, your wishlist text and the audio of your voice note (to transcribe it), your
+    answers about experience and location, job descriptions, and any job post or screenshot you
+    share. Lead research also lets Gemini search the web with Google Search. Scout asks for your
+    permission before it sends anything, and it does not send your password, contacts or
+    location. Google states that it does not use this data to train its models. When you first
+    set up Scout, your name, email, the
     text you wrote about what you want, and your voice note are also sent to a private
     Discord channel that only the developer reads, so that the developer can learn who the
     early users are and what they want.
