@@ -33,8 +33,15 @@ test('experience groups nine outcomes under the approved themes', () => {
 
 test('experience keeps the approved evidence metrics', () => {
   const experience = experienceSource();
-  for (const metric of ['88%', '3x faster', 'days to hours', '94-96%', '80%+', '30 seconds to 5 minutes', 'three production applications']) {
+  for (const metric of ['88%', '3x faster', 'days to hours', '94-96%', '80%+', '30 seconds to 5 minutes']) {
     assert.ok(experience.includes(metric), `Missing approved metric: ${metric}`);
+  }
+});
+
+test('experience leaves out retired claims', () => {
+  const experience = experienceSource();
+  for (const retired of ['data leak', 'access checks', 'three production applications', 'real-time messaging']) {
+    assert.ok(!experience.includes(retired), `Retired claim is back: ${retired}`);
   }
 });
 
