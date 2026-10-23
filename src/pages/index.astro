@@ -19,7 +19,7 @@ const experience = {
     {
       name: 'AI and developer systems',
       highlights: [
-        'Rebuilt Lenskart\'s WhatsApp analytics assistant on Gemini, moved access checks server-side, and closed a production data leak.',
+        'Re-architected Lenskart\'s WhatsApp analytics assistant (2,800+ stores) onto eve and Gemini, replacing an 800-line hand-rolled agent loop with declarative tools.',
         'Built an evaluation suite that supported a cheaper Gemini model, cutting daily spend by about 88% and making responses about 3x faster.',
         'Built an RCA agent that reproduces issues in isolated worktrees and traces production data, logs, and code, reducing resolution time from days to hours.',
       ],
@@ -36,8 +36,8 @@ const experience = {
       name: 'Automation and operations',
       highlights: [
         'Own the pipeline that turns field surveys and geospatial data into client-ready presentations in 30 seconds to 5 minutes.',
-        'Architected real-time messaging used across three production applications with WebSockets and Pub/Sub.',
-        'Built Slack administration, customer notification, and telephony systems with approvals, delivery tracking, idempotent call-state webhooks, and shared summaries.',
+        'Built Slack admin tooling with approval workflows for account, credit, and GCP operations without direct console access.',
+        'Built plan-gated customer notifications and MyOperator telephony with delivery-state tracking and idempotent call-state webhooks.',
       ],
     },
   ],
@@ -93,7 +93,7 @@ const projects = [
     name: 'macremote',
     icon: '/icons/macremote.png',
     description: 'A self-hosted Android remote for your Mac. Control media, volume, brightness, lock, and sleep over Tailscale.',
-    tech: ['React Native', 'FastAPI', 'Hammerspoon'],
+    tech: ['FastAPI', 'Hammerspoon', 'Tailscale'],
     link: 'https://github.com/tejasnafde/macremote',
   },
   {
