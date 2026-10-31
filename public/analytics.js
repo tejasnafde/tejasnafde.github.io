@@ -110,6 +110,7 @@ const productHosts = new Set([
   "watchwithmi.tn07.dev",
   "follymarket.tn07.dev",
   "scout.tn07.dev",
+  "jam.tn07.dev",
 ]);
 
 globalThis.document?.addEventListener("click", (event) => {
