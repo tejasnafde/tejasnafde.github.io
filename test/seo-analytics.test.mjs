@@ -55,7 +55,7 @@ test("the portfolio identifies Tejas Nafde as the person behind the site", async
 
   assert.match(
     layout,
-    /Tejas Nafde is a software engineer in Bengaluru building backend systems, real-time infrastructure, and developer tools\./,
+    /Tejas Nafde is a software engineer in Bengaluru building AI agents and the backend systems they run on\./,
   );
   assert.match(layout, /['"]@type['"]:\s*['"]Person['"]/);
   assert.match(layout, /name:\s*['"]Tejas Nafde['"]/);

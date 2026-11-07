@@ -7,7 +7,7 @@ const source = await readFile(new URL('../src/pages/index.astro', import.meta.ur
 test('hero states the agreed engineering focus and current role', () => {
   assert.match(
     source,
-    /I build backend systems, real-time infrastructure, and developer tools\.\s+Currently at <a[^>]+>GeoIQ<\/a>, a Lenskart company\.\s+BITS Pilani Goa alumnus\./,
+    /I build AI agents and the backend systems they run on\.\s+Currently at <a[^>]+>GeoIQ<\/a>, a Lenskart company\.\s+BITS Pilani Goa alumnus\./,
   );
 });
 

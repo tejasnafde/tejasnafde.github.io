@@ -19,9 +19,9 @@ const experience = {
     {
       name: 'AI and developer systems',
       highlights: [
-        'Re-architected Lenskart\'s WhatsApp analytics assistant (2,800+ stores) onto eve and Gemini, replacing an 800-line hand-rolled agent loop with declarative tools.',
-        'Built an evaluation suite that supported a cheaper Gemini model, cutting daily spend by about 88% and making responses about 3x faster.',
-        'Built an RCA agent that reproduces issues in isolated worktrees and traces production data, logs, and code, reducing resolution time from days to hours.',
+        'Re-architected Lenskart\'s WhatsApp analytics agent (2,800+ stores) onto eve, with typed tools for finding data, reading schemas, and running BigQuery behind read-only, cost-capped guardrails.',
+        'Wrote 68 agent eval cases that check tool use and compare figures against live BigQuery, clearing a cheaper Gemini model: about 88% lower daily spend and replies about 3x faster.',
+        'Built an autonomous root-cause agent on Claude Code that investigates production bugs in an isolated copy of the codebase, backs every verdict with evidence, and tracks cost per run, reducing resolution time from days to hours.',
       ],
     },
     {
@@ -145,7 +145,7 @@ const stack = [
   { group: 'Backend', items: ['FastAPI', 'Flask', 'Node.js', 'WebSockets'] },
   { group: 'Data', items: ['PostgreSQL/PostGIS', 'BigQuery', 'MongoDB', 'Redis', 'SQLite'] },
   { group: 'Infrastructure', items: ['GCP', 'Cloud Run', 'Pub/Sub', 'Airflow', 'Docker', 'Linux'] },
-  { group: 'AI', items: ['Gemini', 'Vertex AI'] },
+  { group: 'AI', items: ['Claude Code', 'eve', 'Tool design', 'MCP', 'Agent evals', 'Langfuse', 'Gemini', 'Vertex AI'] },
 ];
 
 ---
@@ -158,7 +158,7 @@ const stack = [
       <h1 class="hero-name">Tejas Nafde</h1>
       <div class="hero-lower">
         <p class="hero-desc">
-          I build backend systems, real-time infrastructure, and developer tools.
+          I build AI agents and the backend systems they run on.
           Currently at <a href="https://geoiq.io" target="_blank" rel="noopener">GeoIQ</a>, a Lenskart company.
           BITS Pilani Goa alumnus.
         </p>
