@@ -14,7 +14,7 @@ test('stack uses the approved categories and exact items', () => {
     "{ group: 'Backend', items: ['FastAPI', 'Flask', 'Node.js', 'WebSockets'] }",
     "{ group: 'Data', items: ['PostgreSQL/PostGIS', 'BigQuery', 'MongoDB', 'Redis', 'SQLite'] }",
     "{ group: 'Infrastructure', items: ['GCP', 'Cloud Run', 'Pub/Sub', 'Airflow', 'Docker', 'Linux'] }",
-    "{ group: 'AI', items: ['Gemini', 'Vertex AI'] }",
+    "{ group: 'AI', items: ['Claude Code', 'eve', 'Tool design', 'MCP', 'Agent evals', 'Langfuse', 'Gemini', 'Vertex AI'] }",
   ];
 
   let previous = -1;
