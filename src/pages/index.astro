@@ -58,6 +58,7 @@ const featuredWork = [
     icon: '/icons/someday.png',
     blurb: 'Save the things you want to do together, then actually make them happen.',
     play: 'https://play.google.com/store/apps/details?id=app.someday.capture',
+    appStore: 'https://apps.apple.com/app/id6819052816',
   },
   {
     name: 'Scout',
@@ -198,10 +199,19 @@ const stack = [
               <span class="featured-host">{p.host}</span>
               <span class="featured-chev" aria-hidden="true">&rsaquo;</span>
             </a>
-            {p.play && (
-              <a href={p.play} target="_blank" rel="noopener" class="featured-store">
-                <img src="/badges/google-play.png" alt={`Get ${p.name} on Google Play`} width="129" height="50" loading="lazy" />
-              </a>
+            {(p.play || p.appStore) && (
+              <div class="featured-stores">
+                {p.appStore && (
+                  <a href={p.appStore} target="_blank" rel="noopener" class="featured-store featured-store-apple">
+                    <img src="/badges/app-store.svg" alt={`Get ${p.name} on the App Store`} width="100" height="34" loading="lazy" />
+                  </a>
+                )}
+                {p.play && (
+                  <a href={p.play} target="_blank" rel="noopener" class="featured-store">
+                    <img src="/badges/google-play.png" alt={`Get ${p.name} on Google Play`} width="129" height="50" loading="lazy" />
+                  </a>
+                )}
+              </div>
             )}
             </div>
           ))}
@@ -496,19 +506,31 @@ const stack = [
     background: var(--surface);
   }
 
-  /* A store badge sits under its row, lined up with the name. It cannot go inside
-     the row, which is itself a link. The badge PNG carries its own clear space,
-     hence the -6px. */
+  /* Store badges sit under their row, lined up with the name. They cannot go
+     inside the row, which is itself a link. The Play PNG carries its own clear
+     space (a third of its height), hence the -6px. */
+  .featured-stores {
+    display: flex;
+    flex-wrap: wrap;
+    margin: calc(-1 * var(--sp-4)) 0 var(--sp-3) calc(36px + 40px + 2 * var(--sp-4) + var(--sp-2) - 6px);
+  }
+
   .featured-store {
     display: block;
-    width: max-content;
     line-height: 0;
-    margin: calc(-1 * var(--sp-4)) 0 var(--sp-3) calc(36px + 40px + 2 * var(--sp-4) + var(--sp-2) - 6px);
   }
 
   .featured-store img {
     height: 50px;
     width: auto;
+  }
+
+  /* Apple's badge artwork has no clear space of its own. Give it the same as
+     the Play PNG, so the two visible badges are the same height. */
+  .featured-store-apple img {
+    height: calc(50px * 2 / 3);
+    padding: calc(50px / 6);
+    box-sizing: content-box;
   }
 
   .fun-row:hover {
@@ -1028,7 +1050,7 @@ const stack = [
       height: 36px;
     }
 
-    .featured-store {
+    .featured-stores {
       margin-left: calc(28px + 36px + 2 * var(--sp-3) + var(--sp-1) - 6px);
     }
 
