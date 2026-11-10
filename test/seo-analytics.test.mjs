@@ -69,7 +69,7 @@ test("the apex publishes crawler and agent discovery files", async () => {
     source("public/robots.txt"),
     source("public/llms.txt"),
   ]);
-  assert.match(robots, /User-agent: GPTBot\nDisallow: \//);
+  assert.match(robots, /User-agent: GPTBot\nAllow: \//);
   assert.match(robots, /User-agent: Claude-SearchBot\nAllow: \//);
   assert.match(robots, /Sitemap: https:\/\/tn07\.dev\/sitemap-index\.xml/);
   assert.match(llms, /^# Tejas Nafde$/m);
