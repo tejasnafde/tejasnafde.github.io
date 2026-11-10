@@ -21,6 +21,7 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
 ---
 
 <BaseLayout title={`${title} - Tejas Nafde`} description={description}>
+  <link slot="head" rel="alternate" type="text/markdown" href={`${Astro.url.pathname.replace(/\/$/, '')}.md`} />
   <article class="post">
     <header class="post-header">
       {status === 'draft' && <span class="draft-badge label">draft</span>}
