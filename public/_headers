@@ -13,3 +13,7 @@
 
 /design/*
   Access-Control-Allow-Origin: *
+
+# Markdown copies of blog posts (src/pages/blog/[slug].md.ts).
+/blog/*.md
+  Content-Type: text/markdown; charset=utf-8
