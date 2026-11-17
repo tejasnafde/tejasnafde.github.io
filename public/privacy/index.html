@@ -15,6 +15,7 @@
   .updated { color:var(--faint); font-size:.85rem; margin:0 0 2.5rem;
     font-family:ui-monospace, SFMono-Regular, Menlo, monospace; }
   h2 { font-size:1.05rem; margin:2.5rem 0 .6rem; }
+  h3 { font-size:.95rem; margin:1.6rem 0 .4rem; }
   p, li { color:var(--dim); }
   strong { color:var(--text); font-weight:600; }
   code { font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:.9em;
@@ -28,7 +29,7 @@
 <body>
 <main>
   <h1>Privacy</h1>
-  <p class="updated">Last updated 2026-10-21</p>
+  <p class="updated">Last updated 2026-11-18</p>
 
   <p>
     <strong>tn07</strong> is the publisher name for a set of personal software projects:
@@ -140,6 +141,25 @@
     circle. The coordinates are sent once to OpenStreetMap's Nominatim service to find the
     city name, and only the city is stored. The coordinates themselves are not kept. Deny the
     location permission and posts show no city.
+  </p>
+  <h3 id="someday-emails">Emails about your circles</h3>
+  <p>
+    Now and then we may send you an email about your circles: a reminder that ideas are
+    waiting, or a short question asking what would make Someday better. They are rare, a few
+    a year at most, and they come from a person, not a list. We do not send newsletters,
+    offers, or anyone else's mail.
+  </p>
+  <p>
+    <strong>How to stop them.</strong> Every one of these emails has a one-click link that
+    turns them off. You can also turn them off in Settings, under Email. Sign-in links and
+    account notices, such as a deletion confirmation, still arrive, because the account needs
+    them.
+  </p>
+  <p>
+    <strong>What we use.</strong> Your email address, your first name, the names of your
+    circles, and the titles of ideas in them. Nothing goes to a third party beyond the email
+    provider that delivers the message (Resend). The emails carry no tracking pixel; a link
+    in them only says that an email link was opened, as an anonymous count.
   </p>
 
   <h2 id="scout">Scout</h2>
@@ -285,7 +305,7 @@
     Google Cloud (sign-in, Firestore, Cloud Storage, Cloud Run, Vertex AI and IAP), Supabase
     (sign-in and database), Cloudflare (hosting and analytics), Vercel (hosting), Expo (push
     notifications), Apple Push Notification service and Firebase Cloud Messaging (push
-    delivery), Apple and Google speech recognition (Switchboard dictation), OpenStreetMap Nominatim (city lookup for Someday) and Discord (the private developer channels described above). Nothing is
+    delivery), Resend (delivery of Someday's emails about circles), Apple and Google speech recognition (Switchboard dictation), OpenStreetMap Nominatim (city lookup for Someday) and Discord (the private developer channels described above). Nothing is
     shared with anyone else, and nothing is sold. Source for most projects is on
     <a href="https://github.com/tejasnafde">GitHub</a>.
   </p>
